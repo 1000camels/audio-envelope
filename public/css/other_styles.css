@@ -1,0 +1,92 @@
+/* Player background */
+.or-mejs-container.mejs-container,
+.or-mejs-container .mejs-controls,
+.or-mejs-container .mejs-embed,
+.or-mejs-container .mejs-embed body {
+  background-color: transparent;
+  /*display: block;*/
+}
+
+/*.or-mejs-container .mejs-controls {
+  background-color: transparent !important;
+  position: relative;
+}*/
+
+
+/*.mejs-time, .mejs-time-rail, .mejs-volume-button, .mejs-horizontal-volume-slider {
+	display: none !important;
+}*/
+
+
+/* Player controls */
+.or-mejs-container .mejs-button > button {
+  background-image: url(../images/mejs-controls-dark.svg);
+}
+
+.or-mejs-container .mejs-time {
+  color: #888888;
+}
+
+/* Progress and audio bars */
+
+/* Progress and audio bar background */
+.or-mejs-container .mejs-controls .mejs-horizontal-volume-slider .mejs-horizontal-volume-total,
+.or-mejs-container .mejs-controls .mejs-time-rail .mejs-time-total {
+  background-color: #fff;
+}
+
+/* Track progress bar background (amount of track fully loaded)
+  We prefer to style these with the main accent color of our theme */
+.or-mejs-container .mejs-controls .mejs-time-rail .mejs-time-loaded {
+  background-color: rgba(219, 78, 136, 0.075);
+}
+
+/* Current track progress and active audio volume level bar */
+.or-mejs-container .mejs-controls .mejs-horizontal-volume-slider .mejs-horizontal-volume-current,
+.or-mejs-container .mejs-controls .mejs-time-rail .mejs-time-current {
+  background: #db4e88;
+}
+
+/* Reduce height of the progress and audio bars */
+.or-mejs-container .mejs-time-buffering,
+.or-mejs-container .mejs-time-current,
+.or-mejs-container .mejs-time-float,
+.or-mejs-container .mejs-time-float-corner,
+.or-mejs-container .mejs-time-float-current,
+.or-mejs-container .mejs-time-hovered,
+.or-mejs-container .mejs-time-loaded,
+.or-mejs-container .mejs-time-marker,
+.or-mejs-container .mejs-time-total,
+.or-mejs-container .mejs-horizontal-volume-total,
+.or-mejs-container .mejs-time-handle-content {
+  height: 3px;
+}
+
+.or-mejs-container .mejs-time-handle-content {
+  top: -6px;
+}
+
+.or-mejs-container .mejs-time-total {
+  margin-top: 8px;
+}
+
+.or-mejs-container .mejs-horizontal-volume-total {
+  top: 19px;
+}
+
+
+.or-mejs-container .mejs-horizontal-volume-slider {
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+}
+
+
+
+
+
+
+
+
+
+
+

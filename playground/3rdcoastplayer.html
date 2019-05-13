@@ -1,0 +1,798 @@
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:cc="http://creativecommons.org/ns#" xmlns:svg="http://www.w3.org/2000/svg" xml:lang="en" lang="en">
+  <head>
+    <title>Announcing the winners of the 2018 Third Coast/Richard H. Driehaus Competition!</title>
+    <script type="text/javascript">
+    // <![CDATA[
+    (function(exports, s, c, p1, p2) {
+      s.type = 'text/javascript';
+      exports.cache = Object.create(null);
+      exports.require = function(u, p) {
+        var ctx = s.cloneNode();
+        ctx.src = u;
+        ctx.async = p;
+        p ? p2.push(ctx) : ctx.onload = exports.load.bind(ctx, p1.push(ctx));
+      };
+      exports.load = function(i, e) {
+        if (i === e) return p1.concat(p2).map(Node.prototype.appendChild.bind(document.head));
+        if (e && p1.length === i || i === true)
+          while (c.length > 0) c.shift().call();
+
+      };
+      exports.init = function(f, w) {
+        c[w || 'push'](f);
+      };
+      exports.module = function(k) {
+        return (k in exports.cache) ? exports.cache[k] : exports.define.bind(exports, k);
+      };
+      exports.remove = function(k) {
+        delete exports.cache[k];
+      }
+      exports.define = function(k, f) {
+        return (k in exports.cache) ? exports.cache[k] : exports.cache[k] = f;
+      };
+
+    }(this.bloc = {}, document.createElement('script'), [], [], []));
+
+    var mobile = (/mobile|iPhone/i).test(navigator.userAgent),
+      dataLayer = [{
+        'start': Date.now()
+      }],
+      WebFontConfig = {
+        google: {
+          families: ['Source+Sans+Pro:400,300,600,700,400italic', 'Source+Serif+Pro']
+        }
+      };
+
+    document.documentElement.classList.add(mobile ? 'touch' : 'desktop');
+    // Embed script for site
+    bloc.require('bloc.js')
+
+    // Lastly, fonts and analytics
+    bloc.require('//ajax.googleapis.com/ajax/libs/webfont/1/webfont.js', true);
+    bloc.require('//www.google-analytics.com/analytics.js', true);
+
+    window.GoogleAnalyticsObject = 'ga';
+    window.ga = function() {
+      (window.ga.q = window.ga.q || []).push(arguments);
+    };
+    window.ga.l = Date.now();
+
+    ga('create', 'UA-15066679-1', 'auto');
+    ga('send', 'pageview');
+    // ]]>
+  </script>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml;charset=utf-8"/>
+    <meta name="msapplication-tap-highlight" content="no"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="apple-mobile-web-app-title" content="Third Coast"/>
+    <link rel="manifest" href="/manifest.json"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=3,minimum-scale=1"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+    <meta name="apple-mobile-web-app-title" content="Third Coast International Audio Festival"/>
+    <link rel="shortcut icon" href="/images/favicon.ico"/>
+    <link rel="stylesheet" media="screen" type="text/css" href="style.css"/>
+    <style type="text/css" media="screen">
+    /* <![CDATA[ */
+    #browse > footer *     { font-weight: 300; }
+    
+    footer > div.aqua-bg {
+      display: flex;
+      flex-flow: column;
+    }
+    
+    footer > div.aqua-bg > * {
+      flex: 1 1 25%;
+      padding: 1em 2em;
+    }
+
+    footer .aqua-bg,
+    #browse > footer a       { color: #fff }
+    #browse > footer a:hover { text-decoration: underline }
+
+    nav.sponsors ul  { flex-flow: wrap }
+    nav.sponsors img {
+      padding: 0.25em;
+    }
+    
+    .low-contrast,
+    a[data-before]:before { opacity: 0.8 }
+    a[data-before]:before {
+      content: attr(data-before);
+      text-transform: lowercase;
+      font-variant: small-caps;
+      padding-right: 0.25em;
+    }
+    
+    ul.low-contrast li    { padding: 0.175em 0 }  
+    .button.low-contrast  {
+      padding: 0.75em;
+      border: 1px solid rgba(255,255,255,0.8);
+      display: inline-block;
+    }
+    
+    .social a {
+      font-size:100%;
+      display:inline-block;
+      height:3.25em;
+      margin-right: 1em;
+      overflow:hidden;
+      background-repeat:no-repeat;
+      background-size:5em auto;
+      color:rgba(0,0,0,0) !important;
+    }
+
+    @media screen and (min-width: 50em) {
+      #browse > footer .aqua-bg { padding: 6em 1em }
+      footer > div.aqua-bg     { flex-flow: row }
+      footer > div.aqua-bg div { transform: translateY(-4.5em) }
+      nav.sponsors img {
+        height: 5.5vw;
+      }
+    }
+    
+    @media screen and (max-width: 50em) {
+      footer > div.aqua-bg > *              { padding: 1rem }
+      footer > div.aqua-bg > *:nth-child(1) { order: 4 }
+      footer > div.aqua-bg > *:nth-child(2) { order: 1 }
+      footer > div.aqua-bg > *:nth-child(3) { order: 2 }
+      footer > div.aqua-bg > *:nth-child(4) { order: 3 }
+      
+      nav.sponsors li:first-child {
+        width: 100% !important;
+        margin-bottom: 2em;
+      }
+      
+      nav.sponsors img {
+        height: 5em;
+        padding: 0.5em;
+      }
+    }
+
+    /* ]]> */
+  </style>
+  </head>
+  <body class="lookup" data-position="0">
+    <button onclick="document.body.classList.toggle('menu');" class="menu-trigger">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10" style="stroke:#444;stroke-width:0.5">
+        <path d="M2 3L8 3M2 5 L 8 5M 2 7L8 7"/>
+        <path class="action"/>
+        <path class="status"/>
+        <path d="M3 3L 7 7 M 7 3 L 3 7"/>
+      </svg>
+    </button>
+    <header class="panel white-bg">
+      <form class="finder search white-bg">
+        <label style="height:0;display:block;overflow:hidden;" for="finder">Search for features, events, competitions or People</label>
+        <input type="text" value="" id="finder" data-path="search/cluster" data-topic="feature, happening, competition, person, article, collection" autocomplete="off" spellcheck="off" placeholder="search"/>
+        <noscript id="site-search" class="Search" data-id="finder">The Third Coast Festival Audio Player Requires Javascript</noscript>
+      </form>
+      <nav role="navigation" class="panel">
+        <a href="/" class="logo" title="Go to the Third Coast Homepage">Home</a>
+        <ul class="plain caps-lock h5 rag-left">
+          <li>
+            <a href="/overview/library">Listen</a>
+          </li>
+          <li>
+            <a href="/overview/playlists">Playlists</a>
+          </li>
+          <li>
+            <a href="/conference/2018-third-coast-conference">Conference</a>
+          </li>
+          <li>
+            <a href="/overview/competition">Competitions</a>
+          </li>
+          <li>
+            <a href="https://www.thefestchicago.org">The Fest</a>
+          </li>
+          <li>
+            <a href="/overview/events">Events</a>
+          </li>
+          <li>
+            <a href="/explore/shoppe">Shoppe</a>
+          </li>
+          <li>
+            <a href="/overview/tciaf">About</a>
+          </li>
+          <li class="special">
+            <a href="https://donatenow.networkforgood.org/ThirdCoast">Donate</a>
+          </li>
+        </ul>
+      </nav>
+      <section id="media">
+        <noscript id="Player" class="Player" data-queue="" data-controls="controls" data-playlist="plain playlist h6 white-bg">
+          <!-- player requires javascript -->
+        </noscript>
+      </section>
+    </header>
+    <section id="browse" class="column">
+      <main>
+        <article class="feature collection page">
+          <header class="two-thirds tt b panel" style="align-items:center;">
+            <span style="padding:2vmax;">
+              <button class="listen" onclick="quickPlay(this, event);" style="transition:opacity 0.5s;">Play This</button>
+            </span>
+            <h1 class="lead display tracked" data-id="Bpz">Announcing the winners of the 2018 Third Coast/Richard H. Driehaus Competition!</h1>
+          </header>
+          <section class="flip panel">
+            <figure class="gallery one-third ll">
+              <img data-src="//s3.amazonaws.com//tciaf-media/image/m1ou_finalthirdcoast_rhdfwinnergraphic.png" alt=""/>
+            </figure>
+            <div class="two-thirds"><p>The 2018 Third Coast/RHDF Competition award winners are here!</p>
+<p>We won't announce "who won what" until the Third Coast Awards Ceremony, October 6th in Chicago - hosted by Tobin Low &amp; Kathy Tu of  <em>Nancy Podcast</em>  ! Tobin &amp; Kathy will reveal the winners of the following categories: Best Documentary (Gold, Silver, Bronze, Honorable Mention), Best Doc: Foreign Language, Best New Artist, Radio Impact, Best News Feature, Skylarking and - for the first time ever - Best Serialized Story. Learn more about these <a href="/competition/2018-third-coast-richard-h-driehaus-foundation-competition">categories &amp; their prizes!</a></p>
+<p>And... listen to all the winning stories below (in alphabetical order, by title):</p></div>
+          </section>
+          <hr/>
+          <!-- iterate item:features -->
+          <article id="goto-Bpm" data-created="ECIuKW" data-type="producer award item" data-updated="ECJYVO" data-award="" vocab="http://schema.org/" typeof="CreativeWork" class="feature panel listing pad card">
+            <div class="bg">
+              <img data-src="//s3.amazonaws.com//tciaf-media/image/34iwm_counted_featuredimage_daryle.jpeg" alt="" class="proxy"/>
+              <!-- iterate item:media:audio -->
+              <span class="Bpm">
+                <audio src="//s3.amazonaws.com//tciaf-audio/1cfrtp_eghan_countedanoaklandstory.mp.m4a" title="Counted: An Oakland Story" data-ref="/feature/counted-an-oakland-story" preload="none">Audio</audio>
+                <button class="listen" onclick="return loadButtonAudio(this, event);" title="Listen to 'Counted: An Oakland Story'">Play Now</button>
+              </span>
+            </div>
+            <header>
+              <h2 class="display">
+                <a href="/feature/counted-an-oakland-story" data-id="Bpm">Counted: An Oakland Story</a>
+              </h2>
+              <p>During 2017, a team of  <em>Snap Judgment</em>  producers followed every homicide in Oakland, CA for the entire year.</p>
+            </header>
+            <ul class="plain h5 ll sink container">
+              <li class="strong">2018</li>
+              <li style="margin-bottom:0.5em">56:30</li>
+              <!-- iterate item:producers -->
+              <li>
+                <a href="/person/adizah-eghan" data-id="BZy">Adizah Eghan</a>
+              </li>
+              <li>
+                <a href="/person/anna-sussman" data-id="vw">Anna Sussman</a>
+              </li>
+              <li>
+                <a href="/person/shaina-shealy" data-id="Bpo">Shaina Shealy</a>
+              </li>
+              <li>
+                <a href="/person/jonathan-jones" data-id="Bpn">Jonathan Jones</a>
+              </li>
+            </ul>
+          </article>
+          <article id="goto-Bpj" data-created="ECIaPX" data-type="producer award item" data-updated="ECJWma" data-award="" vocab="http://schema.org/" typeof="CreativeWork" class="feature panel listing pad card">
+            <div class="bg">
+              <img data-src="//s3.amazonaws.com//tciaf-media/image/1pyly_dirtywaterepisodeart.jpeg" alt="" class="proxy"/>
+              <!-- iterate item:media:audio -->
+              <span class="Bpj">
+                <audio src="//s3.amazonaws.com//tciaf-audio/kq3pt_poorandwoods-dirtywater.mp.m4a" title="Ear Hustle: Dirty Water" data-ref="/feature/ear-hustle-dirty-water" preload="none">Audio</audio>
+                <button class="listen" onclick="return loadButtonAudio(this, event);" title="Listen to 'Ear Hustle: Dirty Water'">Play Now</button>
+              </span>
+            </div>
+            <header>
+              <h2 class="display">
+                <a href="/feature/ear-hustle-dirty-water" data-id="Bpj">Ear Hustle: Dirty Water</a>
+              </h2>
+              <p>Ear Hustle is a unique creative partnership between Earlonne Woods, who is incarcerated at San Quentin State Prison, and outside collaborator Nigel Poor. Together, along with other men at the prison, they produce stories about daily life behind the walls.</p>
+            </header>
+            <ul class="plain h5 ll sink container">
+              <li class="strong">2018</li>
+              <li style="margin-bottom:0.5em">36:12</li>
+              <!-- iterate item:producers -->
+              <li>
+                <a href="/person/earlonne-woods" data-id="BDV">Earlonne Woods</a>
+              </li>
+              <li>
+                <a href="/person/nigel-poor" data-id="BDS">Nigel Poor</a>
+              </li>
+            </ul>
+          </article>
+          <article id="goto-Bpy" data-created="ECJDBd" data-type="producer award item" data-updated="ECJbev" data-award="" vocab="http://schema.org/" typeof="CreativeWork" class="feature panel listing pad card">
+            <div class="bg">
+              <img data-src="//s3.amazonaws.com//tciaf-media/image/5fjb_screenshot2018-08-28at92234pm.png" alt="" class="proxy"/>
+              <!-- iterate item:media:audio -->
+              <span class="Bpy">
+                <audio src="//s3.amazonaws.com//tciaf-audio/9h6ex_quevedo-esperawait.mp.m4a" title="Espera / Wait" data-ref="/feature/espera-wait" preload="none">Audio</audio>
+                <button class="listen" onclick="return loadButtonAudio(this, event);" title="Listen to 'Espera / Wait'">Play Now</button>
+              </span>
+            </div>
+            <header>
+              <h2 class="display">
+                <a href="/feature/espera-wait" data-id="Bpy">Espera / Wait</a>
+              </h2>
+              <p>Two lovers share an intimate conversation on the eve of their breakup, exploring loneliness and intimacy.</p>
+            </header>
+            <ul class="plain h5 ll sink container">
+              <li class="strong">2018</li>
+              <li style="margin-bottom:0.5em">13:16</li>
+              <!-- iterate item:producers -->
+              <li>
+                <a href="/person/sayre-quevedo" data-id="Zb">Sayre Quevedo</a>
+              </li>
+            </ul>
+          </article>
+          <article id="goto-Bpk" data-created="ECIahU" data-type="producer award item" data-updated="ECJWnH" data-award="" vocab="http://schema.org/" typeof="CreativeWork" class="feature panel listing pad card">
+            <div class="bg">
+              <img data-src="//s3.amazonaws.com//tciaf-media/image/g3sj_solos_godthegays_2048x1229.jpeg" alt="" class="proxy"/>
+              <!-- iterate item:media:audio -->
+              <span class="Bpk">
+                <audio src="//s3.amazonaws.com//tciaf-audio/hnn9i_wang_godthegays.mp.m4a" title="God + The Gays" data-ref="/feature/god-the-gays" preload="none">Audio</audio>
+                <button class="listen" onclick="return loadButtonAudio(this, event);" title="Listen to 'God + The Gays'">Play Now</button>
+              </span>
+            </div>
+            <header>
+              <h2 class="display">
+                <a href="/feature/god-the-gays" data-id="Bpk">God + The Gays</a>
+              </h2>
+              <p>In her first radio piece, Phoebe visits Christians from her past and tries to understand whether queer people and homophobic Christians can have meaningful relationships.</p>
+            </header>
+            <ul class="plain h5 ll sink container">
+              <li class="strong">2018</li>
+              <li style="margin-bottom:0.5em">30:54</li>
+              <!-- iterate item:producers -->
+              <li>
+                <a href="/person/phoebe-wang" data-id="BaJ">Phoebe Wang</a>
+              </li>
+            </ul>
+          </article>
+          <article id="goto-Bpg" data-created="ECIZuN" data-type="producer award item" data-updated="ECJWwB" data-award="" vocab="http://schema.org/" typeof="CreativeWork" class="feature panel listing pad card">
+            <div class="bg">
+              <img data-src="//s3.amazonaws.com//tciaf-media/image/239l_tesla_and_beyond-1024x546.jpeg" alt="" class="proxy"/>
+              <!-- iterate item:media:audio -->
+              <span class="Bpg">
+                <audio src="//s3.amazonaws.com//tciaf-audio/qqhgk_evans_hiddenproblemsofsiliconvalley.mp.m4a" title="Hidden Problems of Silicon Valley" data-ref="/feature/hidden-problems-of-silicon-valley" preload="none">Audio</audio>
+                <button class="listen" onclick="return loadButtonAudio(this, event);" title="Listen to 'Hidden Problems of Silicon Valley'">Play Now</button>
+              </span>
+            </div>
+            <header>
+              <h2 class="display">
+                <a href="/feature/hidden-problems-of-silicon-valley" data-id="Bpg">Hidden Problems of Silicon Valley</a>
+              </h2>
+              <p>Since its founding 15 years ago, Tesla has become one of the most valuable car companies in the country. Tesla is worth tens of billions of dollars, and its all-electric cars have achieved cult status among enthusiasts.</p>
+            </header>
+            <ul class="plain h5 ll sink container">
+              <li class="strong">2018</li>
+              <li style="margin-bottom:0.5em">18:44</li>
+              <!-- iterate item:producers -->
+              <li>
+                <a href="/person/will-evans" data-id="Bph">Will Evans</a>
+              </li>
+              <li>
+                <a href="/person/alyssa-jeong-perry" data-id="Bpi">Alyssa Jeong Perry</a>
+              </li>
+            </ul>
+          </article>
+          <article id="goto-Bpl" data-created="ECItyp" data-type="producer award item" data-updated="ECJWxC" data-award="" vocab="http://schema.org/" typeof="CreativeWork" class="feature panel listing pad card">
+            <div class="bg">
+              <img data-src="//s3.amazonaws.com//tciaf-media/image/15d0t_imagefordoc.jpeg" alt="" class="proxy"/>
+              <!-- iterate item:media:audio -->
+              <span class="Bpl">
+                <audio src="//s3.amazonaws.com//tciaf-audio/m500k_zenti_hostsfat.mp.m4a" title="Host's Fat" data-ref="/feature/hosts-fat" preload="none">Audio</audio>
+                <button class="listen" onclick="return loadButtonAudio(this, event);" title="Listen to 'Host's Fat'">Play Now</button>
+              </span>
+            </div>
+            <header>
+              <h2 class="display">
+                <a href="/feature/hosts-fat" data-id="Bpl">Host's Fat</a>
+              </h2>
+              <p>Meat podcast’s host Jonathan Zenti is an overweight man (technically “obese").</p>
+            </header>
+            <ul class="plain h5 ll sink container">
+              <li class="strong">2017</li>
+              <li style="margin-bottom:0.5em">38:49</li>
+              <!-- iterate item:producers -->
+              <li>
+                <a href="/person/jonathan-zenti" data-id="vy">Jonathan Zenti</a>
+              </li>
+            </ul>
+          </article>
+          <article id="goto-Bpd" data-created="ECIZCl" data-type="producer award item" data-updated="ECJWnm" data-award="" vocab="http://schema.org/" typeof="CreativeWork" class="feature panel listing pad card">
+            <div class="bg">
+              <img data-src="//s3.amazonaws.com//tciaf-media/image/smu3_img_6171.jpeg" alt="" class="proxy"/>
+              <!-- iterate item:media:audio -->
+              <span class="Bpd">
+                <audio src="//s3.amazonaws.com//tciaf-audio/s2uwy_marantz_johnthompsonvsamericanjustice.mp.m4a" title="John Thompson vs. American Justice" data-ref="/feature/john-thompson-vs-american-justice" preload="none">Audio</audio>
+                <button class="listen" onclick="return loadButtonAudio(this, event);" title="Listen to 'John Thompson vs. American Justice'">Play Now</button>
+              </span>
+            </div>
+            <header>
+              <h2 class="display">
+                <a href="/feature/john-thompson-vs-american-justice" data-id="Bpd">John Thompson vs. American Justice</a>
+              </h2>
+              <p>When police showed up to question John Thompson, he was worried that he had sold drugs to an undercover cop.</p>
+            </header>
+            <ul class="plain h5 ll sink container">
+              <li class="strong">2018</li>
+              <li style="margin-bottom:0.5em">49:14</li>
+              <!-- iterate item:producers -->
+              <li>
+                <a href="/person/andrew-marantz" data-id="Bpf">Andrew Marantz</a>
+              </li>
+              <li>
+                <a href="/person/sarah-lustbader" data-id="Bpe">Sarah Lustbader</a>
+              </li>
+              <li>
+                <a href="/person/katherine-wells" data-id="Ws">Katherine Wells</a>
+              </li>
+            </ul>
+          </article>
+          <article id="goto-Bpc" data-created="ECIYRU" data-type="producer award item" data-updated="ECJXqd" data-award="" vocab="http://schema.org/" typeof="CreativeWork" class="feature panel listing pad card">
+            <div class="bg">
+              <img data-src="//s3.amazonaws.com//tciaf-media/image/4u7h_mashihimanchoubamimage.png" alt="" class="proxy"/>
+              <!-- iterate item:media:audio -->
+              <span class="Bpc">
+                <audio src="//s3.amazonaws.com//tciaf-audio/sjgb3_mashihi-manchoubamiamgood.mp.m4a" title="Man Choubam (I am good)" data-ref="/feature/man-choubam-i-am-good" preload="none">Audio</audio>
+                <button class="listen" onclick="return loadButtonAudio(this, event);" title="Listen to 'Man Choubam (I am good)'">Play Now</button>
+              </span>
+            </div>
+            <header>
+              <h2 class="display">
+                <a href="/feature/man-choubam-i-am-good" data-id="Bpc">Man Choubam (I am good)</a>
+              </h2>
+              <p>Sharon is a weirdo and refuses to conform to cultural standards. Her mom does not approve. They confront their longstanding differences on a Persian self-help cruise. </p>
+            </header>
+            <ul class="plain h5 ll sink container">
+              <li class="strong">2017</li>
+              <li style="margin-bottom:0.5em">39:57</li>
+              <!-- iterate item:producers -->
+              <li>
+                <a href="/person/sharon-mashihi" data-id="Ji">Sharon Mashihi</a>
+              </li>
+            </ul>
+          </article>
+          <article id="goto-Bpr" data-created="ECIyJB" data-type="producer award item" data-updated="ECJXVS" data-award="" vocab="http://schema.org/" typeof="CreativeWork" class="feature panel listing pad card">
+            <div class="bg">
+              <img data-src="//s3.amazonaws.com//tciaf-media/image/77au_findingcleoimage.png" alt="" class="proxy"/>
+              <!-- iterate item:media:audio -->
+              <span class="Bpr">
+                <audio src="//s3.amazonaws.com//tciaf-audio/t4mfh_cbc_finding_cleo_-_ep011.mp.m4a" title="Missing and Murdered: Finding Cleo" data-ref="/feature/missing-and-murdered-finding-cleo" preload="none">Audio</audio>
+                <button class="listen" onclick="return loadButtonAudio(this, event);" title="Listen to 'Missing and Murdered: Finding Cleo'">Play Now</button>
+              </span>
+            </div>
+            <header>
+              <h2 class="display">
+                <a href="/feature/missing-and-murdered-finding-cleo" data-id="Bpr">Missing and Murdered: Finding Cleo</a>
+              </h2>
+              <p>Where is Cleo? It’s a mystery her family has been trying to unravel for decades after the young Cree girl was apprehended by child welfare workers in Saskatchewan, Canada in the 1970’s.</p>
+            </header>
+            <ul class="plain h5 ll sink container">
+              <li class="strong">2018</li>
+              <li style="margin-bottom:0.5em">33:45</li>
+              <!-- iterate item:producers -->
+              <li>
+                <a href="/person/connie-walker" data-id="Bps">Connie Walker</a>
+              </li>
+              <li>
+                <a href="/person/heather-evans" data-id="Bpv">Heather Evans</a>
+              </li>
+              <li>
+                <a href="/person/mieke-anderson" data-id="Ber">Mieke Anderson</a>
+              </li>
+              <li>
+                <a href="/person/jennifer-fowler" data-id="Bpt">Jennifer Fowler</a>
+              </li>
+              <li>
+                <a href="/person/marnie-luke" data-id="Bpu">Marnie Luke</a>
+              </li>
+            </ul>
+          </article>
+          <article id="goto-Bpb" data-created="ECIYLk" data-type="producer award item" data-updated="ECJWoK" data-award="" vocab="http://schema.org/" typeof="CreativeWork" class="feature panel listing pad card">
+            <div class="bg">
+              <img data-src="//s3.amazonaws.com//tciaf-media/image/828z_sammymackinterviewsluisderosaatryderphotobytanialeets.jpeg" alt="" class="proxy"/>
+              <!-- iterate item:media:audio -->
+              <span class="Bpb">
+                <audio src="//s3.amazonaws.com//tciaf-audio/2mbfm_gunsoverniteer_-_xld_-_smack_w_tags_extra_long_web.mp.m4a" title="Overnight in the E.R." data-ref="/feature/overnight-in-the-er" preload="none">Audio</audio>
+                <button class="listen" onclick="return loadButtonAudio(this, event);" title="Listen to 'Overnight in the E.R.'">Play Now</button>
+              </span>
+            </div>
+            <header>
+              <h2 class="display">
+                <a href="/feature/overnight-in-the-er" data-id="Bpb">Overnight in the E.R.</a>
+              </h2>
+              <p>For most of the past decade, if a child or teenager got shot in Miami–Dade County, they would be taken to one place: the Ryder Trauma Center at Jackson Memorial Hospital.</p>
+            </header>
+            <ul class="plain h5 ll sink container">
+              <li class="strong">2018</li>
+              <li style="margin-bottom:0.5em">09:10</li>
+              <!-- iterate item:producers -->
+              <li>
+                <a href="/person/sammy-mack" data-id="Yp">Sammy Mack</a>
+              </li>
+            </ul>
+          </article>
+          <article id="goto-BpZ" data-created="ECIYBB" data-type="producer award item" data-updated="ECJWoS" data-award="" vocab="http://schema.org/" typeof="CreativeWork" class="feature panel listing pad card">
+            <div class="bg">
+              <img data-src="//s3.amazonaws.com//tciaf-media/image/j8rj_summerrain2.jpeg" alt="" class="proxy"/>
+              <!-- iterate item:media:audio -->
+              <span class="BpZ">
+                <audio src="//s3.amazonaws.com//tciaf-audio/1r1gn_kristensen-summerrain.mp.m4a" title="Summer Rain" data-ref="/feature/summer-rain" preload="none">Audio</audio>
+                <button class="listen" onclick="return loadButtonAudio(this, event);" title="Listen to 'Summer Rain'">Play Now</button>
+              </span>
+            </div>
+            <header>
+              <h2 class="display">
+                <a href="/feature/summer-rain" data-id="BpZ">Summer Rain</a>
+              </h2>
+              <p>To have and to lose control.</p>
+            </header>
+            <ul class="plain h5 ll sink container">
+              <li class="strong">2017</li>
+              <li style="margin-bottom:0.5em">03:00</li>
+              <!-- iterate item:producers -->
+              <li>
+                <a href="/person/nanna-hauge-kristensen" data-id="Bpa">Nanna Hauge Kristensen</a>
+              </li>
+            </ul>
+          </article>
+          <article id="goto-BpX" data-created="ECIXnj" data-type="producer award item" data-updated="ECJWcG" data-award="" vocab="http://schema.org/" typeof="CreativeWork" class="feature panel listing pad card">
+            <div class="bg">
+              <img data-src="//s3.amazonaws.com//tciaf-media/image/9rt3_nydc4749ca.jpeg" alt="" class="proxy"/>
+              <!-- iterate item:media:audio -->
+              <span class="BpX">
+                <audio src="//s3.amazonaws.com//tciaf-audio/16aa1j_brown_uncountedciviliancasualtiesiniraq.mp.m4a" title="Uncounted Civilian Casualties in Iraq" data-ref="/feature/uncounted-civilian-casualties-in-iraq" preload="none">Audio</audio>
+                <button class="listen" onclick="return loadButtonAudio(this, event);" title="Listen to 'Uncounted Civilian Casualties in Iraq'">Play Now</button>
+              </span>
+            </div>
+            <header>
+              <h2 class="display">
+                <a href="/feature/uncounted-civilian-casualties-in-iraq" data-id="BpX">Uncounted Civilian Casualties in Iraq</a>
+              </h2>
+              <p>The American-led battle against the Islamic State has been hailed as the most precise air campaign in history. But its airstrikes have killed far more Iraqi civilians than anyone has acknowledged.</p>
+            </header>
+            <ul class="plain h5 ll sink container">
+              <li class="strong">2017</li>
+              <li style="margin-bottom:0.5em">49:19</li>
+              <!-- iterate item:producers -->
+              <li>
+                <a href="/person/annie-brown" data-id="BpY">Annie Brown</a>
+              </li>
+            </ul>
+          </article>
+        </article>
+      </main>
+      <footer id="footer">
+        <div class="aqua-bg">
+          <address class="p">
+            <span class="display">Third Coast International Audio Festival</span>
+            <span>Navy Pier</span>
+            <span>848 East Grand</span>
+            <span>Chicago, Illinois 60611-3509</span>
+            <small style="margin-top:0.5em;padding-top:0.25em;border-top: 1px solid rgba(255,255,255,0.2); display: block;color:rgba(255,255,255,0.8);">
+              <time datetime="2018-09-18T00:25:32-05:00">© 2018</time>
+              <a href="/overview/policy" style="padding-left: 0.5em; margin-left: 0.5em; border-left: 1px solid rgba(255,255,255,0.1)">Terms &amp; Conditions</a>
+            </small>
+            <ul class="plain t">
+              <li>
+                <a data-before="phone" href="tel:312-948-4682">(312) 948-4682</a>
+              </li>
+              <li>
+                <a data-before="email" href="mailto:info@thirdcoastfestival.org">info@thirdcoastfestival.org</a>
+              </li>
+            </ul>
+          </address>
+          <ul class="caps-lock plain low-contrast h6">
+            <li>
+              <a href="/overview/events">Events</a>
+            </li>
+            <li>
+              <a href="/overview/tciaf">About</a>
+            </li>
+            <li>
+              <a href="/overview/people">Producer Index</a>
+            </li>
+            <li>
+              <a href="/overview/subscribe">Subscribe</a>
+            </li>
+            <li>
+              <a href="/overview/opportunities">Jobs &amp; Internships</a>
+            </li>
+            <li>
+              <a href="/overview/playlists">Playlists</a>
+            </li>
+            <li>
+              <a href="/explore/shoppe">Shoppe</a>
+            </li>
+            <li>
+              <a href="/explore/behindthescenes">Behind-the-Scenes Interviews</a>
+            </li>
+            <li>
+              <a href="https://www.thefestchicago.org">The Fest</a>
+            </li>
+            <li>
+              <a href="/residency/">Radio Residency</a>
+            </li>
+          </ul>
+          <div>
+            <h3 class="display">Support</h3>
+            <p class="low-contrast">Your gift to the Third Coast means the world to us, and helps us do what we do best: bring you the best audio stories from around the world</p>
+            <a href="https://donatenow.networkforgood.org/ThirdCoast" class="button low-contrast caps-lock h5">Donate Now</a>
+          </div>
+          <div>
+            <h3 class="display">Connect</h3>
+            <nav class="social b">
+              <a title="facebook" style="background-position:-1.5em -5.5em; width: 2em;" href="https://www.facebook.com/thirdcoastfest?ref=ts">Facebook</a>
+              <a title="twitter" style="background-position:-0.75em 0; width:3.5em;" href="https://twitter.com/ThirdCoastFest">Twitter</a>
+              <a title="instagram" style="background-position:-1em -11.35em; width: 3em;" href="https://instagram.com/thirdcoastfest/">Instagram</a>
+            </nav>
+            <a href="https://app.e2ma.net/app2/audience/signup/1400701/1400216/" class="button low-contrast caps-lock h5">Third Coast Newsletter</a>
+          </div>
+        </div>
+        <nav class="sponsors" style="background-color: #fff; color:#888;padding:4em 0 4em 4em;">
+          <ul class="plain panel">
+            <li style="width:35%;align-self:center;padding-right:3em;font-size:150%;font-weight:400;">Thank you to the following foundations for their major support of the Third Coast Festival.</li>
+            <!-- iterate supporters -->
+            <li>
+              <a href="https://www.macfound.org/" class="show">
+                <img data-src="//s3.amazonaws.com//tciaf-media/image/2l5_mac.png" alt="The MacArthur Foundation"/>
+              </a>
+            </li>
+            <li>
+              <a href="http://www.driehausfoundation.org/" class="show">
+                <img data-src="//s3.amazonaws.com//tciaf-media/image/44s_driehaus_sh_horizontal_rgb.svg" alt="The Richard H. Driehaus Foundation"/>
+              </a>
+            </li>
+            <li>
+              <a href="https://www.arts.gov/" class="show">
+                <img alt="National Endowment for the Arts"/>
+              </a>
+            </li>
+            <li>
+              <a class="show">
+                <img data-src="//s3.amazonaws.com//tciaf-media/image/5kun_manaaki_green.jpg" alt="Manaaki Foundation"/>
+              </a>
+            </li>
+            <li>
+              <a href="http://www.agadinofoundation.org/" class="show">
+                <img data-src="//s3.amazonaws.com//tciaf-media/image/32nm_agadino.jpg" alt="AgaDino Foundation"/>
+              </a>
+            </li>
+          </ul>
+        </nav>
+        <script type="text/javascript" async="true">
+    // <![CDATA[
+
+      // This is reliant on position, using IntersectionObserver
+
+      setTimeout(function () {
+        document.querySelectorAll('img[data-src]').forEach(function (img) {
+          if (window.lazyload) {
+            window.lazyload.observe(img);
+          } else {
+            img.addEventListener('load', function () {
+              if (this.classList.contains('proxy')) {
+                var context = this.parentNode;
+                var prefix = context.style.backgroundImage;
+                if (prefix) {
+                  prefix += ', ';
+                }
+    
+                context.style.backgroundImage = prefix + `url(${this.src})`;
+                setTimeout(DOMTokenList.prototype.add.bind(context.classList, 'loaded'), 10);
+    
+                this.remove();
+              } else {
+                this.removeAttribute('data-src');
+              }
+            });
+            
+            img.src = img.dataset.src;
+          }
+        });
+      }, 250);
+    // ]]>
+  </script>
+      </footer>
+      <!-- replace helper -->
+    </section>
+    <script type="text/javascript">bloc.load();</script>
+    <style type="text/css" media="screen">
+      /* <![CDATA[ */
+      .seven {
+        display: flex;
+        flex-wrap: wrap;
+      }
+      @media (min-width: 850px) {
+        .seven {
+          margin-left:-2.5vmax;
+        }
+        .banner div.callout {
+          font-size:1.75em;
+        }
+      }
+      .seven > li {
+        margin: 0.5em;
+        background-color: #fff;
+        flex: 2 0 calc(25% - 1em);
+        min-width: 20em;
+        padding:1.5em;
+      }
+      @media (max-width: 40em) {
+        .seven {
+          margin-left:0;
+          flex-direction: column;
+        }
+        .seven > li {
+          height: auto;
+        }
+      }
+      .banner .callout {
+        position:absolute;
+        bottom: 0;
+        right: 0;
+        margin: 0;
+        line-height:0.5;
+        width: 100%;
+        background-color: #fff;
+        background: linear-gradient(90deg, rgba(255,255,255,0.95), rgba(255,255,255,0.75));
+        padding: 1em 5%;
+        font-size: 1.25em;
+      }
+      div#ad {
+        width: 100vw;
+        height: 100vh;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 1000;
+        text-align: right;
+        font-size:1.25em;
+        background-color: rgba(25,20,15,0.9);
+        box-shadow: inset 0 0 10em rgba(0,0,0,0.1);
+        transition: opacity 0.5s;
+      }
+      div#ad > span {
+        position: absolute;
+        top: 2em;
+        right: 2em;
+        color: #fff;
+        text-transform:uppercase;
+      }
+      
+      div#ad > span:hover {
+        color: rgba(255,255,255,0.5);
+        cursor: pointer;
+      }
+      div#ad a {
+        display: block;
+        width: 60vw;
+        margin: 50vh auto;
+        transform: translate(0, -50%);
+        box-shadow: 0 0 15em rgba(0,0,0,0.25);
+      }
+      div#ad img {
+        width: 100%;
+      }
+      div#ad ~ * {
+        filter: blur(2px);
+      }
+      /* ]]> */
+    </style>
+    <script type="text/javascript">
+      // <![CDATA[
+        // mind, month is n-1 as Jan is 0 
+        if (new Date(2018, 3, 16) > new Date() && (document.cookie.split(' ').map(c => c.split('=')).find(a => a[0] == "S")||[false,';']).pop().slice(0,-1) != '1') {
+          var splash = document.body.appendChild(document.createElement('div'));
+          splash.appendChild(document.createElement('span')).textContent = '✕ Click background to close';
+
+          var link =  splash.appendChild(document.createElement('a'));
+          var img  = link.appendChild(document.createElement('img'));
+          
+          splash.classList.add('fade');
+          splash.id   = 'ad';
+          link.href   = 'https://third-coast-festival.networkforgood.com/events/5827-third-coast-extravaganza';
+          link.target = '_blank';
+          img.src     = 'https://3rdcoast-cms.s3.amazonaws.com/splash-page-extravaganza.jpg';
+          
+          splash.addEventListener('click', function (evt) {
+            this.parentNode.removeChild(this);
+          });
+          setTimeout(document.insertBefore.bind(document.body, splash, document.body.firstChild), 750);
+          setTimeout(DOMTokenList.prototype.remove.bind(splash.classList, 'fade'), 250);
+          document.cookie = 'S=1; expires='+(new Date(Date.now() + (60 * 60 * 12 * 1000)));
+        }
+      
+      // ]]>
+    </script>
+  </body>
+</html>

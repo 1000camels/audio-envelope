@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Audio Player</title>
+  <meta name="description" content="Audio Player">
+  <link rel="stylesheet" href="style.css">
+  <script type="text/javascript" src="bloc.js"></script>
+</head>
+<body>
+
+
+<section xmlns="http://www.w3.org/1999/xhtml" id="media">
+    <div id="Player" data-position="undefined">
+        <div class="controls">
+            <button type="button" class="pause">
+                <svg xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 100 100">
+                    <path class="indicator" d="m 45 0 l 0 100 l -40 0 l 0 -100 Z m 10 0 l 0 100 l 40 0 l 0 -100 Z">
+                        <animate attributeName="d" attributeType="XML" dur="0.25s" begin="indefinite" fill="freeze" from="m 15 5  l 70 90 l -35  0 l 0 -90  z m 70  0 l -70 90 l 35   0 l  0 -90 z" to="m 45 0  l 0 100 l -40  0 l 0 -100 z m 10  0 l  0 100 l 40   0 l 0 -100 z" />
+                    </path>
+                </svg>
+            </button>
+            <div class="progress" data-state="playing">
+                <svg xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 100 100">
+                    <defs>
+                        <path id="upper" d="M20,35 C 35 10, 65 10, 80 35" />
+                        <path id="lower" d="M20,65 C 35 90, 65 90, 80 65" />
+                    </defs>
+                    <text dy="7.5">
+                        <textPath xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#upper" startOffset="50%">00:00:19</textPath>
+                    </text>
+                    <text dy="0">
+                        <textPath xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#lower" startOffset="50%">00:56:11</textPath>
+                    </text>
+                    <circle cx="50" cy="50" r="40" />
+                    <path d="M90,50A40,40 0 01 89.97519994433745,51.408328587454875" class="status" transform="rotate(-90 50 50)" />
+                    <path d="M90,50A40,40 0 11 49.96425381230774,10.00001597237737L50,50z" class="handle" transform="rotate(-90 50 50)" />
+                </svg>
+            </div>
+            <audio src="https://20943.mc.tritondigital.com/WHOOSHKAA_1979/media-session/0fd11ba0-290c-445e-a865-2611168583d0/podcasts/podcast_1979/podcast_media/e000c2-hl-ep01-1.mp3"></audio>
+        </div>
+        <ul class="plain playlist h6 white-bg">
+            <li id="Bpm"><span>Counted: An Oakland Story</span></li>
+            <li id="Bpj"><span>Ear Hustle: Dirty Water</span></li>
+            <li id="Bpy"><span>Espera / Wait</span></li>
+            <li id="Bpk"><span>God + The Gays</span></li>
+            <li id="Bpg"><span>Hidden Problems of Silicon Valley</span></li>
+            <li id="Bpl"><span>Host's Fat</span></li>
+            <li id="Bpd"><span>John Thompson vs. American Justice</span></li>
+            <li id="Bpc"><span>Man Choubam (I am good)</span></li>
+            <li id="Bpr"><span>Missing and Murdered: Finding Cleo</span></li>
+            <li id="Bpb"><span>Overnight in the E.R.</span></li>
+            <li id="BpZ"><span>Summer Rain</span></li>
+            <li id="BpX"><span>Uncounted Civilian Casualties in Iraq</span></li>
+        </ul>
+    </div>
+</section>
+
+
+<audio class="wp-audio-shortcode" id="audio-40-1" preload="auto" style="width: 100%;" controls="controls"><source type="audio/mpeg" src="https://20943.mc.tritondigital.com/WHOOSHKAA_1979/media-session/0fd11ba0-290c-445e-a865-2611168583d0/podcasts/podcast_1979/podcast_media/e000c2-hl-ep01-1.mp3?_=1"><a href="https://20943.mc.tritondigital.com/WHOOSHKAA_1979/media-session/0fd11ba0-290c-445e-a865-2611168583d0/podcasts/podcast_1979/podcast_media/e000c2-hl-ep01-1.mp3">https://20943.mc.tritondigital.com/WHOOSHKAA_1979/media-session/0fd11ba0-290c-445e-a865-2611168583d0/podcasts/podcast_1979/podcast_media/e000c2-hl-ep01-1.mp3</a></audio>
+
+</body>
+</html>

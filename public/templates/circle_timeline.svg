@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid" width="100%" height="100%" viewBox="-11 -11 122 122">
+	<path d="M50 10A40 40 0 0 1 50 90A40 40 0 0 1 50 10" class="baseline" fill="none" stroke="#fff" stroke-width="14"></path>
+	<path d="M50 10A40 40 0 0 1 50 90A40 40 0 0 1 50 10" fill="none" class="bufferline" stroke-width="14" stroke="#e6e6e6"></path>
+	<path d="M50 10A40 40 0 0 1 50 90A40 40 0 0 1 50 10" fill="none" class="scrubline" stroke-width="14" stroke="#b3b3b3"></path>
+	<path d="M50 10A40 40 0 0 1 50 90A40 40 0 0 1 50 10" class="mainline" fill="none" stroke-width="14" stroke="#189e98"></path>
+	<path d="M50 10A40 40 0 0 1 50 90A40 40 0 0 1 50 10" id="text_path" class="baseline" fill="none" stroke="red" stroke-width="1"></path>
+	<text class="elapsed">
+		<textPath stroke="black" href="#text_path" startOffset="0%">00:00</textPath>
+	</text>
+	<text class="remaining">
+		<textPath stroke="black" href="#text_path" startOffset="50%">25:32</textPath>
+	</text>
+</svg>
