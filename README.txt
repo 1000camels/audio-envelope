@@ -45,5 +45,9 @@ We are also exploring ways to 'carry' the audio around with you, however the aud
 
 == Changelog ==
 
-= 1.0 =
+= 1.0.0 =
 * Initial release
+
+= 1.0.1 =
+* Fixing issues with text and description selectors
+* Adding options for adjusting these selectors
