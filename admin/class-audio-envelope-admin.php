@@ -158,7 +158,25 @@ class Audio_Envelope_Admin {
 			$this->option_name . '_general',
 			array( 'label_for' => $this->option_name . '_audio_selector' )
 		);
+		add_settings_field(
+			$this->option_name . '_title_selector',
+			__( 'Audio Selector', 'audio-envelope' ),
+			array( $this, $this->option_name . '_title_selector_cb' ),
+			$this->plugin_name,
+			$this->option_name . '_general',
+			array( 'label_for' => $this->option_name . '_title_selector' )
+		);
+		add_settings_field(
+			$this->option_name . '_description_selector',
+			__( 'Audio Selector', 'audio-envelope' ),
+			array( $this, $this->option_name . '_description_selector_cb' ),
+			$this->plugin_name,
+			$this->option_name . '_general',
+			array( 'label_for' => $this->option_name . '_description_selector' )
+		);
 		register_setting( $this->plugin_name, $this->option_name . '_audio_selector', 'string' );
+		register_setting( $this->plugin_name, $this->option_name . '_title_selector', 'string' );
+		register_setting( $this->plugin_name, $this->option_name . '_description_selector', 'string' );
 	}
 
 	/**
@@ -171,13 +189,33 @@ class Audio_Envelope_Admin {
 	}
 
 	/**
-	 * Render the treshold day input for this plugin
+	 * Render the audio_selector field
 	 *
 	 * @since  1.0.0
 	 */
 	public function audio_envelope_options_audio_selector_cb() {
 		$audio_selector = get_option( $this->option_name . '_audio_selector' );
-		echo '<input type="text" name="' . $this->option_name . '_audio_selector' . '" id="' . $this->option_name . '_audio_selector' . '" value="' . $audio_selector . '" placeholder="audio.wp-audio-shortcode"> ';
+		echo '<input type="text" name="' . $this->option_name . '_audio_selector' . '" id="' . $this->option_name . '_audio_selector' . '" value="' . $audio_selector . '" placeholder="audio.wp-audio-shortcode" class="audio_envelope_text_options"> ';
+	}
+
+	/**
+	 * Render the title_selector field
+	 *
+	 * @since  1.0.0
+	 */
+	public function audio_envelope_options_title_selector_cb() {
+		$audio_selector = get_option( $this->option_name . '_title_selector' );
+		echo '<input type="text" name="' . $this->option_name . '_title_selector' . '" id="' . $this->option_name . '_title_selector' . '" value="' . $audio_selector . '" placeholder="h3, h2, h1" class="audio_envelope_text_options"> ';
+	}
+
+	/**
+	 * Render the description_selector field
+	 *
+	 * @since  1.0.0
+	 */
+	public function audio_envelope_options_description_selector_cb() {
+		$audio_selector = get_option( $this->option_name . '_description_selector' );
+		echo '<input type="text" name="' . $this->option_name . '_description_selector' . '" id="' . $this->option_name . '_description_selector' . '" value="' . $audio_selector . '" placeholder=".elementor-post__excerpt p:first-child" class="audio_envelope_text_options"> ';
 	}
 
 }

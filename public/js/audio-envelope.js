@@ -2,6 +2,9 @@
 
 var app = window.AporiaPlaylist = {
 	start: function(data) {
+		// window.localStorage.removeItem('audio-envelope-player');
+		// window.localStorage.removeItem('audio-envelope-playlist');
+
 		this.data = data;
 		this.players = new this.Collections.Players( data.players );
 		delete this.data.players;
@@ -450,7 +453,6 @@ app.Views.Playlist = app.View.extend({
         	this.hidePlayer();
         } else {
         	var width = Math.max(window.screen.width, window.innerWidth);
-        	console.log(width);
         	if(width > 767) {
         		this.showPlayer();
         	}
@@ -542,7 +544,7 @@ app.Views.Playlist = app.View.extend({
 
 	    var dim = target.getBoundingClientRect();
 	    if( this.touchobj ) {
-	    	console.log(touchobj[0])
+	    	//console.log(touchobj[0])
 	    	var mouseX = this.touchobj.clientX - dim.left;
 	    	var mouseY = this.touchobj.clientY - dim.top;
 	    } else {
@@ -736,7 +738,7 @@ app.Views.Playlist = app.View.extend({
 		}
 
 		document.title = this.current.get('title');
-		console.log(document.title);
+		 //console.log(document.title);
 	},
 
 	bindPlayer : function (mejs) {
@@ -893,7 +895,7 @@ app.Views.Playlist = app.View.extend({
 
 		_.each( this.tracks.models, function(model) {
 			// model.set( 'index', self.model.tracknumbers ? i : false );
-			console.log(model.toJSON())
+			//console.log(model.toJSON())
 			tracklist.append( self.itemTemplate( model.toJSON() ) );
 			i += 1;
         });
@@ -977,8 +979,10 @@ app.Views.Players = app.View.extend({
 /* Provide quick way to find title */
 $.fn.getTitle = function() {
 	var title = ''
+	var title_selector = ( audio_envelope.description_selector ) ? audio_envelope.description_selector : 'h3, h2, h1';
+
 	this.parents().each(function() {
-		var match = $(this).children('h3, h2, h1');
+		var match = $(this).children(title_selector);
 		if( match.length ) {
 			if( match.find('a').length ) {
 				title = match.find('a').html().trim();
@@ -996,11 +1000,20 @@ $.fn.getTitle = function() {
 }
 /* Provide quick way to find title */
 $.fn.getDescription = function() {
-	if( this.closest('article').find('p').length ) {
-		return $(this).closest('article').find('p').html().trim();
-	} else {
-		return '';
-	}
+	var description = ''
+	var description_selector = ( audio_envelope.description_selector ) ? audio_envelope.description_selector : '.elementor-post__excerpt p:first-child';
+
+	this.parents('div,article').each(function() {
+		//console.log(description_selector)
+		var match = $(this).children(description_selector);
+		if( match.length ) {
+			description = match.html().trim();
+			//console.log('found description: '+description);
+			return false;
+		}
+	});
+
+	return description;
 }
 
 
@@ -1024,9 +1037,11 @@ function findAudio() {
 			var src = this_player.attr('src').replace(/_=[0-9]+/,'').replace(/\?$/,'');
 			//var type = this_player.attr('type');
 			var title = this_player.getTitle();
+			console.log(title)
 			// this is not available yet, so not sure why I am trying to get it
 			//var duration = this_player.mediaelementplayer.duration;
 			var description = this_player.getDescription().replace(/(<([^>]+)>)/ig,"");
+			console.log(description)
 
 			// Using checksum code from https://codepen.io/ImagineProgramming/post/checksum-algorithms-in-javascript-checksum-js-engine
 			var id = "ae_"+(new Checksum("fnv32", 0).updateStringly(src).result.toString(16));
@@ -1055,6 +1070,8 @@ function findAudio() {
 			// while we are here, wrap all the players
 			audio_container.before('<div id="'+id+'" class="ap-container"/>');
 		});
+
+		console.log(players)
 	}
 
 	// re-show any players that are not matched with the audio selector

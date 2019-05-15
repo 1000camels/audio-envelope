@@ -2,6 +2,6 @@
  * All of the CSS for your admin-specific functionality should be
  * included in this file.
  */
- #audio_envelope_options_audio_selector {
+.audio_envelope_text_options {
  	width: 500px;
  }
