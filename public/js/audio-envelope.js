@@ -21,10 +21,10 @@ var app = window.AporiaPlaylist = {
 
 
 		// Instantiate the Players (play buttons on entryies)
-		this.view = new this.Views.Players({ collection: this.players });
+		new this.Views.Players({ collection: this.players });
 
 		// Instantiate the Playlist & Tracks
-		this.view = new this.Views.Playlist({ id: 'mejs-player-panel', model: new app.Models.Playlist(), collection: this.players });
+		new this.Views.Playlist({ id: 'mejs-player-panel', model: new app.Models.Playlist(), collection: this.players });
 	}
 };
 
@@ -100,27 +100,23 @@ app.Models.Player = app.Model.extend({
 	},
 
 	makeActive : function(options) {
-		//console.log('making model '+this.get('id')+' active')
+		//console.log('making model '+this.get('title')+' active')
 		this.set('active', true, options);
 	},
 
 	makeInactive : function(options) {
-		//console.log('making model '+this.get('id')+' inactive')
+		//console.log('making model '+this.get('title')+' inactive')
 		this.set('active', false, options);
 	},
 
 	play : function(options) {
-		//console.log('making model '+this.get('id')+' not paused')
+		//console.log('making model '+this.get('title')+' not paused')
 		this.set('playing', true, options);
 	},
 
 	pause : function(options) {
-		//console.log('making model '+this.get('id')+' paused')
+		//console.log('making model '+this.get('title')+' paused')
 		this.set('playing', false, options);
-	},
-
-	getAudioPlayer : function() {
-
 	},
 
 	getAudioID : function() {
@@ -219,20 +215,22 @@ app.Collections.Players = Backbone.Collection.extend({
 	},
 
 	getCurrentPlayer : function() {
-		var pausedPlayer = false;
+		var currentPlayer = false;
     	_.each( this.models, function(model) {
     		if( model.get('active') ) {
-	    		pausedPlayer = model
+    			//console.log('currentPlayer is '+model.get('src'))
+	    		currentPlayer = model
+	    		return false
     		}
     	});
 
     	// make first player as active
-    	// if( ! pausedPlayer ) {
-    	// 	pausedPlayer = this.first();
-    	// 	pausedPlayer.makeActive();
-    	// }
+    	if( ! currentPlayer ) {
+    		currentPlayer = this.first();
+    		currentPlayer.makeActive();
+    	}
 
-    	return pausedPlayer;
+    	return currentPlayer;
 	}
 
 });
@@ -251,8 +249,20 @@ app.Views.Player = app.View.extend({
 	initialize : function() {
 		//console.log('initialize app.Views.Player');
 
+		var previous_model = this.model;
+		var title = previous_model.get('title');
+		var description = previous_model.get('description');
+
 		// get data from storage
 		this.model.fetch();
+
+		// copy over new title and description, in case they have been changed
+		// this is a hack to account for issues with localStorage
+		this.model.set('title', title);
+		this.model.set('description', description);
+
+		// console.log(previous_model)
+		// console.log(this.model)
 
 		// jump back 2 seconds to account for time lapse when restarting play
   		this.model.set('currentTime', this.model.get('currentTime')-2);
@@ -306,6 +316,7 @@ app.Views.Player = app.View.extend({
 		//console.log('Player.render() '+this.model.get('active'))
 		var article = this.$el.closest('article');
 		article.addClass('has-audio-player');
+		//console.log('set player active '+this.model.get('active'))
 		if( this.model.get('active') ) {
 			//console.log('set player active')
 			article.removeClass('inactive-player').addClass('active-player');
@@ -469,8 +480,8 @@ app.Views.Playlist = app.View.extend({
 	events : {
 		'click .close-expand-button': 'togglePlayer',
 		'click .ae-playlist-item' : 'clickTrack',
-		'click .player-button.play-button': 'clickPlay',
-		'click .player-button.pause-button': 'clickPause',
+		'click .large-button.player-button.play-button': 'clickPlay',
+		'click .large-button.player-button.pause-button': 'clickPause',
 		'click .play-pause-button.play-button': 'clickPlay',
 		'click .play-pause-button.pause-button': 'clickPause',
 		'click .skip-back-button': 'clickSkipBack',
@@ -752,41 +763,24 @@ app.Views.Playlist = app.View.extend({
 		this.bindPlayer( mejs );
 	},
 
-	// setPlayer: function (force) {
-	// 	console.log('setPlayer')
-	// 	if ( this.player ) {
-	// 		this.player.pause();
-	// 		this.player.remove();
-	// 		this.playerNode = this.$( this.model.get('type') );
-	// 	}
-
-	// 	if (force) {
-	// 		this.playerNode.attr( 'src', this.current.get( 'src' ) );
-	// 		this.settings.success = this.bindResetPlayer;
-	// 	}
-
-	// 	/**
-	// 	 * This is also our bridge to the outside world
-	// 	 */
-	// 	this.player = new MediaElementPlayer( this.playerNode.get(0), this.settings );
-	// },
-
 	setCurrent : function (index) {
-		var previous = this.current;
-
-		if(!index) {
+		if(index) {
+			var previous = this.current;
+			this.index = index;
+			this.current = this.tracks.at(this.index);
+		} else {
 			this.current = this.tracks.getCurrentPlayer();
-			if(!this.current) {
-				if(this.index == -1) this.index = 0;
-			}
 		}
 
-		this.current = this.tracks.at(this.index);
+		if(!this.current) {
+			if(this.index == -1) this.index = 0;
+			this.current = this.tracks.at(this.index);
+		}
 		this.current.makeActive();
 
 		this.bindMediaElement();
 
-		if ( previous !== this.current) {
+		if ( previous && previous !== this.current) {
     		this.renderCurrent();
 		}
 	},
@@ -1001,7 +995,7 @@ $.fn.getTitle = function() {
 /* Provide quick way to find title */
 $.fn.getDescription = function() {
 	var description = ''
-	var description_selector = ( audio_envelope.description_selector ) ? audio_envelope.description_selector : '.elementor-post__excerpt p:first-child';
+	var description_selector = ( audio_envelope.description_selector ) ? audio_envelope.description_selector : 'p';
 
 	this.parents('div,article').each(function() {
 		//console.log(description_selector)
@@ -1037,11 +1031,11 @@ function findAudio() {
 			var src = this_player.attr('src').replace(/_=[0-9]+/,'').replace(/\?$/,'');
 			//var type = this_player.attr('type');
 			var title = this_player.getTitle();
-			console.log(title)
+			//console.log(title)
 			// this is not available yet, so not sure why I am trying to get it
 			//var duration = this_player.mediaelementplayer.duration;
 			var description = this_player.getDescription().replace(/(<([^>]+)>)/ig,"");
-			console.log(description)
+			//console.log(description)
 
 			// Using checksum code from https://codepen.io/ImagineProgramming/post/checksum-algorithms-in-javascript-checksum-js-engine
 			var id = "ae_"+(new Checksum("fnv32", 0).updateStringly(src).result.toString(16));

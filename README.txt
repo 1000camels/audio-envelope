@@ -4,7 +4,7 @@ Donate link: https://aporia.info
 Tags: audio, player
 Requires at least: 3.5
 Tested up to: 5.2
-Stable tag: 1.0.1
+Stable tag: 1.0.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -51,3 +51,7 @@ We are also exploring ways to 'carry' the audio around with you, however the aud
 = 1.0.1 =
 * Fixing issues with text and description selectors
 * Adding options for adjusting these selectors
+
+= 1.0.2 =
+* Fixed issue with active state of audio
+* Excluding title and description from localStorage to catch change in the page

@@ -484,8 +484,9 @@ body.expanded-playlist-player #mejs-player-panel .ae-playlist {
 }
 .ae-playlist-item .ae-playlist-item-description {
   display: none;
-  font-size: 11px;
+  font-size: 11px; 
   margin-top: 10px;
+  margin-left: 70px;
   font-weight: 200;
 }
 .ae-playlist-item.ae-playlist-playing .ae-playlist-item-description {
