@@ -139,6 +139,7 @@ app.Models.Player = app.Model.extend({
 
 		var audio_id = this.getAudioID();
 		var this_audio_player = $('#'+audio_id).get(0);
+		if(!this_audio_player) return;
 
 		return this_audio_player[property];
 	},
@@ -513,6 +514,8 @@ app.Views.Playlist = app.View.extend({
 		$('mejs-container audio').off('timeupdate');
 		$('mejs-container audio').off('ended');
 
+		if(!this_audio_player) return;
+		
 		// Restore play position
   		this_audio_player.currentTime = this.current.get('currentTime');
 
