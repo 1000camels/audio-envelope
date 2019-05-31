@@ -4,7 +4,7 @@ Donate link: https://aporia.info
 Tags: audio, player
 Requires at least: 3.5
 Tested up to: 5.2
-Stable tag: 1.0.3
+Stable tag: 1.0.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -57,4 +57,7 @@ We are also exploring ways to 'carry' the audio around with you, however the aud
 * Excluding title and description from localStorage to catch change in the page
 
 = 1.0.3 =
+* Added deactivation param, for demo purposes
+
+= 1.0.4 =
 * Fixed issue with state without currentTime

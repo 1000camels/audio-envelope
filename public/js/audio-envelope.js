@@ -514,8 +514,8 @@ app.Views.Playlist = app.View.extend({
 		$('mejs-container audio').off('timeupdate');
 		$('mejs-container audio').off('ended');
 
-		if(!this_audio_player) return;
-		
+		if(!this_audio_player || !this.current) return;
+
 		// Restore play position
   		this_audio_player.currentTime = this.current.get('currentTime');
 
@@ -558,6 +558,7 @@ app.Views.Playlist = app.View.extend({
 
 	    var timeline = $(target).parents('.player-timeline');
 
+		if(!this.current) return;
 
 	    var currentTime = this.current.get('currentTime');
 	    var duration = this.current.getAudioProperty('duration');
