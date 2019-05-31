@@ -55,3 +55,6 @@ We are also exploring ways to 'carry' the audio around with you, however the aud
 = 1.0.2 =
 * Fixed issue with active state of audio
 * Excluding title and description from localStorage to catch change in the page
+
+= 1.0.3 =
+* Fixed issue with state without currentTime
