@@ -1,3 +1,8 @@
+/**
+ * This is the main code for Audio Envelope. It uses Backbone.js and scans the page for audio elements
+ * and constructs a player and playlist from that 
+ */
+
 (function($){
 
 var app = window.AporiaPlaylist = {
@@ -341,6 +346,8 @@ app.Views.Player = app.View.extend({
     	// if we are not paused, we are playing
 		var audio_id = this.model.getAudioID();
 		this_audio_player = $('#'+audio_id).get(0);
+		if(!this_audio_player) return;
+
   		this_audio_player.currentTime = this.model.get('currentTime');
 
 		if( this.model.get('playing') && this_audio_player.paused ) {
@@ -662,9 +669,10 @@ app.Views.Playlist = app.View.extend({
 		this.current.pause();
 		this.current.set('currentTime',0);
 	  	e.target.currentTime = -1;
-		if( this.model.autoplay ) this.current.play();
 
 		this.nextTrack();
+
+		this.current.play();
 	},
 
 	prevTrack : function() {
@@ -764,7 +772,7 @@ app.Views.Playlist = app.View.extend({
 	},
 
 	setCurrent : function (index) {
-		if(index) {
+		if(index != null) {
 			var previous = this.current;
 			this.index = index;
 			this.current = this.tracks.at(this.index);
@@ -975,21 +983,33 @@ $.fn.getTitle = function() {
 	var title = ''
 	var title_selector = ( audio_envelope.description_selector ) ? audio_envelope.description_selector : 'h3, h2, h1';
 
-	this.parents().each(function() {
-		var match = $(this).children(title_selector);
-		if( match.length ) {
-			if( match.find('a').length ) {
-				title = match.find('a').html().trim();
-				 //console.log('found heading: '+title);
-				return false;
-			} else {
-				title = match.html().trim();
-				 //console.log('found heading: '+title);
-				return false;
-			}
+	// First let's look for preceding siblings
+	var match = this.closest(title_selector);
+	if( match.length ) {
+		if( match.find('a').length ) {
+			title = match.find('a').html().trim();
 		}
-	});
+	}
 
+	// Now let's look for cousins
+	if( !title.length ) {
+		this.parents().each(function() {
+			var match = $(this).children(title_selector);
+			if( match.length ) {
+				if( match.find('a').length ) {
+					title = match.find('a').html().trim();
+					 //console.log('found heading: '+title);
+					return false;
+				} else {
+					title = match.html().trim();
+					 //console.log('found heading: '+title);
+					return false;
+				}
+			}
+		});
+	}
+
+	console.log(title);
 	return title;
 }
 /* Provide quick way to find title */
@@ -1065,7 +1085,7 @@ function findAudio() {
 			audio_container.before('<div id="'+id+'" class="ap-container"/>');
 		});
 
-		console.log(players)
+		//console.log(players)
 	}
 
 	// re-show any players that are not matched with the audio selector
@@ -1079,9 +1099,24 @@ function findAudio() {
  * wait a 10th of a second to load the player
  */
 $( document ).ready(function(){
+	const newurl = new URL(location.href)
+	const params = new URLSearchParams(location.search);
+    var ae_deactivated = params.get('ae_deactivated') ? params.get('ae_deactivated') : false;
+    if(ae_deactivated) {
+    	params.delete('ae_deactivated')
+    	newurl.search = params;
+    	$('#ae_activation_button').html('Turn on Audio Envelope').attr('href',newurl);
+    } else {
+    	params.set('ae_deactivated','true')
+    	newurl.search = params;
+    	$('#ae_activation_button').html('Turn off Audio Envelope').attr('href',newurl);
+    }
+
 	setTimeout( function() {
-		var players = findAudio();
-		if( players.length ) AporiaPlaylist.start({ players: players });
+		if(!ae_deactivated) {
+			var players = findAudio();
+			if( players.length ) AporiaPlaylist.start({ players: players });
+		}
 	}, 100);
 });
 

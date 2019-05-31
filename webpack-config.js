@@ -30,7 +30,10 @@ const config = {
 				// Exclude the node_modules folder.
 				exclude: /node_modules/,
 				// Use babel loader to transpile the JS files.
-				loader: 'babel-loader'
+				loader: 'babel-loader',
+		        options: {
+		          presets: ['@babel/preset-env']
+		        }
 			}
 		]
 	}
