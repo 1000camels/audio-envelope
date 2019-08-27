@@ -118,9 +118,35 @@ class Audio_Envelope_Public {
 				false 
 			);
 		}
+
+		global $post;
+		$activate_player = get_option( 'audio-envelope_activate_player' );
+		if( $activate_player ) {
+			// if activated globally, see if there is a local deactivation
+			if( ! get_post_meta( $post->ID, '_ae_activate_player', true ) ) {
+				$activate_player = 0;
+				if(WP_DEBUG) $debug_msg = 'Audio Envelope: globally activated; locally deactivated';
+			} else {
+				if(WP_DEBUG) $debug_msg = 'Audio Envelope: globally activated';
+			}
+		} else {
+			// if deactivated globally, see if there is a local activation
+			if( get_post_meta( $post->ID, '_ae_activate_player', true ) ) {
+				$activate_player = 1;
+				if(WP_DEBUG) $debug_msg = 'Audio Envelope: globally deactivated; locally activated';
+			} else {
+				if(WP_DEBUG) $debug_msg = 'Audio Envelope: globally deactivated';
+			}
+
+		}
+
 		// Add localised variables
 		$localised_data = array(
-			'audio_selector' => get_option( 'audio_envelope_options_audio_selector' ),
+			'activate_player' => $activate_player,
+			'audio_selector' => get_option( 'audio-envelope_audio_selector' ),
+			'title_selector' => get_option( 'audio-envelope_title_selector' ),
+			'description_selector' => get_option( 'audio-envelope_description_selector' ),
+			'debug_msg' => $debug_msg
 		);
 		wp_localize_script( $this->plugin_name, 'audio_envelope', $localised_data );
 		wp_enqueue_script( $this->plugin_name );

@@ -58,6 +58,12 @@ register_deactivation_hook(__FILE__, 'deactivate_audio_envelope');
  */
 require plugin_dir_path(__FILE__) . 'includes/class-audio-envelope.php';
 
+
+/**
+ * Load the gutenberg block
+ */
+require plugin_dir_path(__FILE__) . 'blocks/audio-envelope.php';
+
 /**
  * Begins execution of the plugin.
  *

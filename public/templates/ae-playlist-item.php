@@ -7,7 +7,7 @@
 				printf( _x( '%s', 'playlist item title' ), '{{ data.title }}' );
 			?></h5>
 			<# if ( data.description ) { #>
-				<div class="ae-playlist-item-description">{{ data.description }}</div>
+				<div class="ae-playlist-item-description">{{{ data.description }}}</div>
 			<# } #>
 		</a>
 		<# if ( data.meta.length_formatted ) { #>

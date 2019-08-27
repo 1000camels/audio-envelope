@@ -286,7 +286,7 @@ app.Views.Player = app.View.extend({
 		buttonwrapper.append( button );
 
 		// Load the compiled HTML into the Backbone "el"
-		this.$el.append( buttonwrapper );
+		this.$el.prepend( buttonwrapper );
 
 		// Show play button
 		//this.$el.find('.player-button').removeClass('pause-button').addClass('play-button');
@@ -884,7 +884,7 @@ app.Views.Playlist = app.View.extend({
 
 	formatTime : function( string ) {
 		if( !isFinite( string ) ) {
-			var timecode = 'unknown';
+			var timecode = '';
 		} else {
 			var timecode = mejs.Utils.secondsToTimeCode( parseInt(string) );
 		}
@@ -985,59 +985,106 @@ app.Views.Players = app.View.extend({
 /* Provide quick way to find title */
 $.fn.getTitle = function() {
 	var title = ''
-	var title_selector = ( audio_envelope.description_selector ) ? audio_envelope.description_selector : 'h3, h2, h1';
+	var title_selector = ( audio_envelope.description_selector ) ? audio_envelope.description_selector : '.ae-title, h3, h2, h1';
 
-	// First let's look for preceding siblings
-	var match = this.closest(title_selector);
-	if( match.length ) {
-		if( match.find('a').length ) {
-			title = match.find('a').html().trim();
-		}
+	var title = this.getClosest(title_selector);
+	if( title ) {
+		return title;
+		// if( title.find('a').length ) {
+		// 	return title.find('a').html().trim();
+		// } else {
+		// 	return title.html().trim();
+		// }
 	}
 
-	// Now let's look for cousins
-	if( !title.length ) {
-		this.parents().each(function() {
-			var match = $(this).children(title_selector);
-			if( match.length ) {
-				if( match.find('a').length ) {
-					title = match.find('a').html().trim();
-					 //console.log('found heading: '+title);
-					return false;
-				} else {
-					title = match.html().trim();
-					 //console.log('found heading: '+title);
-					return false;
-				}
-			}
-		});
-	}
-
-	console.log(title);
-	return title;
+	return false;
 }
+
 /* Provide quick way to find title */
 $.fn.getDescription = function() {
 	var description = ''
-	var description_selector = ( audio_envelope.description_selector ) ? audio_envelope.description_selector : 'p';
+	var description_selector = ( audio_envelope.description_selector ) ? audio_envelope.description_selector : '.ae-description, p';
 
-	this.parents('div,article').each(function() {
-		//console.log(description_selector)
-		var match = $(this).children(description_selector);
-		if( match.length ) {
-			description = match.html().trim();
-			//console.log('found description: '+description);
-			return false;
+	var description = this.getClosest(description_selector);
+	if( description ) {
+		return description;
+	}
+
+	return false;
+}
+
+
+/**
+ * get closest sibling which matches selector 
+ * start with previous, then next, then travserse up to parent and repeat
+ */
+$.fn.getClosest = function(selector) {
+	var depth = 8;
+
+	var elem = this;
+
+	for (i = 0; i < depth; i++) {
+
+		var prev = elem.get(0).previousElementSibling;
+
+		// Check all previous siblings
+		while (prev) {
+			// If the matching item is found, return item
+			if (selector && prev.matches(selector)) {
+				//console.log(prev)
+				return $(prev)
+			}
+
+			// Get the previous sibling
+			prev = prev.previousElementSibling
 		}
-	});
 
-	return description;
+
+		var next = elem.get(0).nextElementSibling;
+
+		// Check all next siblings
+		while (next) {
+			// If the matching item is found, return item
+			if (selector && next.matches(selector)) {
+				//console.log(next)
+				return $(next)
+			}
+
+			// Get the previous sibling
+			next = next.nextElementSibling
+		}
+
+		// we haven't found a match yet, let's traverse up a level
+		elem = elem.parent();
+	}
+
+
+	return false;
+};
+
+
+/**
+ *
+ */
+function stripTag(str, tag) {
+    var a, parent, div = document.createElement('div');
+    div.innerHTML = str;
+    a = div.getElementsByTagName( tag );
+    while( a[0] ) {
+        parent = a[0].parentNode;
+        while (a[0].firstChild) {
+            parent.insertBefore(a[0].firstChild, a[0]);
+        }
+        parent.removeChild(a[0]);
+    }
+    return div.innerHTML;
 }
 
 
 /**
  * Locates Audio in DOM
  */
+ 
 function findAudio() {
 
 	var players = [];
@@ -1049,16 +1096,16 @@ function findAudio() {
 	if( all_audio.length ) {
 		all_audio.each(function() {
 			var this_player = $(this);
+
+			// guard statement: we have an audio element, but no src defined
+			if( !this_player.attr('src') ) return;
+
+			// look for the surrounding audio containers (MediaElement.JS or HTML Audio)
 			var audio_container = $(this).closest('.mejs-container, figure.wp-block-audio');
 			 audio_container.addClass('hidden');
 
 			var src = this_player.attr('src').replace(/_=[0-9]+/,'').replace(/\?$/,'');
 			//var type = this_player.attr('type');
-			var title = this_player.getTitle();
-			//console.log(title)
-			// this is not available yet, so not sure why I am trying to get it
-			//var duration = this_player.mediaelementplayer.duration;
-			var description = this_player.getDescription().replace(/(<([^>]+)>)/ig,"");
 			//console.log(description)
 
 			// Using checksum code from https://codepen.io/ImagineProgramming/post/checksum-algorithms-in-javascript-checksum-js-engine
@@ -1068,6 +1115,14 @@ function findAudio() {
 			if( !this_player.attr('id') ) {
 				this_player.attr('id', id+'_audio');
 			}
+
+			// Get Title, removing surrounding markup, including links
+			var title_element = this_player.getTitle();
+			var title = $(title_element).html().trim().replace(/(<([^>]+)>)/ig,"");
+
+			// Get Description, removing surrounding markup, including links
+			var description_element = this_player.getDescription();
+			var description = stripTag($(description_element).html().trim(),'a'); //replace(/(<(/)+a([^>]+)>)/ig,"");
 
 			// build the list of players
 			players.push(
@@ -1086,7 +1141,13 @@ function findAudio() {
 			);
 
 			// while we are here, wrap all the players
-			audio_container.before('<div id="'+id+'" class="ap-container"/>');
+			//audio_container.before('<div id="'+id+'" class="ap-container"/>');
+
+			$(title_element).before('<div id="'+id+'" class="ap-container"/>');
+			$('#'+id).append($(title_element));
+			$('#'+id).append($(description_element));
+			$('#'+id).append(audio_container);
+
 		});
 
 		//console.log(players)
@@ -1103,6 +1164,8 @@ function findAudio() {
  * wait a 10th of a second to load the player
  */
 $( document ).ready(function(){
+
+	// process parameters to allow for temporary disabling of player for demonstration purposes
 	const newurl = new URL(location.href)
 	const params = new URLSearchParams(location.search);
     var ae_deactivated = params.get('ae_deactivated') ? params.get('ae_deactivated') : false;
@@ -1116,8 +1179,18 @@ $( document ).ready(function(){
     	$('#ae_activation_button').html('Turn off Audio Envelope').attr('href',newurl);
     }
 
+    if(audio_envelope.debug_msg) console.log(audio_envelope.debug_msg);
+
+    // create surround container, since I am unable to do this in gutenberg
+    $('.ae-block').each(function() {
+    	if( $(this).find('ae-description').length > 1 ) {
+    		$(this).find('ae-description').removeClass('ae-description').wrapAll('<div class="ae-description" />');
+    	}
+    });
+
 	setTimeout( function() {
-		if(!ae_deactivated) {
+		console.log(audio_envelope);
+		if( !ae_deactivated && audio_envelope.activate_player ) {
 			var players = findAudio();
 			if( players.length ) AporiaPlaylist.start({ players: players });
 		}

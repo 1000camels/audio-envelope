@@ -332,17 +332,18 @@ body.expanded-playlist-player #mejs-player-panel .ae-playlist {
 
 /* Buttons */
 
-.player-button {
+.ap-container {
+  position: relative;
+}
+.ap-container .player-button {
 	position: absolute;
-	top: 2px;
+	top: -10px;
 	right: 2px;
 	width: 50px;
 	height: 50px;
 	padding: 0;
 	margin: 0;
 	border: 0;
-	/*border-radius: 25px;*/
-  /*background-color: #189e98;*/
 }
 .player-button svg path {
   fill: inherit;

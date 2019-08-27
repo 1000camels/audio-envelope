@@ -47,7 +47,8 @@ class Audio_Envelope_Admin {
 	 * @access 	private
 	 * @var  	string 		$option_name 	Option name of this plugin
 	 */
-	private $option_name = 'audio_envelope_options';
+	private $display_options = 'audio-envelope_display_options';
+	private $advanced_options = 'audio-envelope_advanced_options';
 
 	/**
 	 * Initialize the class and set its properties.
@@ -112,6 +113,45 @@ class Audio_Envelope_Admin {
 		}
 	}
 
+
+	/**
+	 * Register Hello Gutenbert Meta Box
+	 */
+	function add_meta_box() {
+		add_meta_box( 'audio_envelope_meta_box', __( 'Audio Envelope', 'audio-envelope' ), array( $this, 'metabox_callback' ), 'post' );
+	}
+
+	/**
+	 * Hello Gutenberg Metabox Callback
+	 */
+	function metabox_callback( $post ) {
+		$activate_player_globally = checked(1, get_option( $this->plugin_name . '_activate_player'), false);
+		$activated = get_post_meta( $post->ID, '_ae_activate_player', true );
+
+		if($activate_player_globally) {
+			echo '<p>'.__('Player is ON globally','audio-envelope').'</p>';
+			echo '<input type="checkbox" name="ae_activate_player" id="ae_activate_player" value="0" '.(checked(0, $activated, false)).'/>';
+			echo '<label for="ae_activate_player">'.__( 'Disable player for this page', 'audio-envelope' ).'</label>';
+		} else {
+			echo '<p>'.__('Player is OFF globally','audio-envelope').'</p>';
+			echo '<br/>';
+			echo '<input type="checkbox" name="ae_activate_player" id="ae_activate_player" value="1" '.(checked(1, $activated, false)).'/>';
+			echo '<label for="ae_activate_player">'.__( 'Enable player for this page', 'audio-envelope' ).'</label>';
+		}
+		?>
+		<?php
+	}
+
+	/**
+	 * Save Hello Gutenberg Metabox
+	 */
+	function save_metabox_postdata( $post_id ) {
+		if ( array_key_exists( 'ae_activate_player', $_POST ) ) {
+			update_post_meta( $post_id, '_ae_activate_player', $_POST['ae_activate_player'] );
+		}
+	}
+
+
 	/**
 	 * Add an options page under the Settings submenu
 	 *
@@ -144,40 +184,60 @@ class Audio_Envelope_Admin {
 	 * @since  1.0.0
 	 */
 	public function register_setting() {
+		// Display Options
 		add_settings_section(
-			$this->option_name . '_general',
-			__( 'General', 'audio-envelope' ),
-			array( $this, $this->option_name . '_general_cb' ),
-			$this->plugin_name
+			$this->display_options,
+			__( 'Display', 'audio-envelope' ),
+			array( $this, 'audio_envelope_options_general_cb' ),
+			$this->display_options
 		);
 		add_settings_field(
-			$this->option_name . '_audio_selector',
-			__( 'Audio Selector', 'audio-envelope' ),
-			array( $this, $this->option_name . '_audio_selector_cb' ),
-			$this->plugin_name,
-			$this->option_name . '_general',
-			array( 'label_for' => $this->option_name . '_audio_selector' )
+			$this->plugin_name . '_activate_player', 
+			__( 'Activate Player', 'audio-envelope' ),
+			array( $this, 'audio_envelope_options_activate_player_cb' ), 
+			$this->display_options,
+			$this->display_options,
+			array( 'label_for' => 'audio_envelope_options_activate_player' )
+		);  
+		register_setting( $this->display_options, $this->plugin_name . '_activate_player', 'string' );
+
+
+		// Advanced Options
+		add_settings_section(
+			$this->advanced_options,
+			__( 'Advanced', 'audio-envelope' ),
+			array( $this, 'audio_envelope_options_general_cb' ),
+			$this->advanced_options
 		);
 		add_settings_field(
-			$this->option_name . '_title_selector',
+			$this->plugin_name . '_audio_selector',
 			__( 'Audio Selector', 'audio-envelope' ),
-			array( $this, $this->option_name . '_title_selector_cb' ),
-			$this->plugin_name,
-			$this->option_name . '_general',
-			array( 'label_for' => $this->option_name . '_title_selector' )
+			array( $this, 'audio_envelope_options_audio_selector_cb' ),
+			$this->advanced_options,
+			$this->advanced_options,
+			array( 'label_for' => 'audio_envelope_options_audio_selector' )
 		);
 		add_settings_field(
-			$this->option_name . '_description_selector',
-			__( 'Audio Selector', 'audio-envelope' ),
-			array( $this, $this->option_name . '_description_selector_cb' ),
-			$this->plugin_name,
-			$this->option_name . '_general',
-			array( 'label_for' => $this->option_name . '_description_selector' )
+			$this->plugin_name . '_title_selector',
+			__( 'Title Selector', 'audio-envelope' ),
+			array( $this, 'audio_envelope_options_title_selector_cb' ),
+			$this->advanced_options,
+			$this->advanced_options,
+			array( 'label_for' => 'audio_envelope_options_title_selector' )
 		);
-		register_setting( $this->plugin_name, $this->option_name . '_audio_selector', 'string' );
-		register_setting( $this->plugin_name, $this->option_name . '_title_selector', 'string' );
-		register_setting( $this->plugin_name, $this->option_name . '_description_selector', 'string' );
+		add_settings_field(
+			$this->plugin_name . '_description_selector',
+			__( 'Description Selector', 'audio-envelope' ),
+			array( $this, 'audio_envelope_options_description_selector_cb' ),
+			$this->advanced_options,
+			$this->advanced_options,
+			array( 'label_for' => 'audio_envelope_options_description_selector' )
+		);
+		register_setting( $this->advanced_options, $this->plugin_name . '_audio_selector', 'string' );
+		register_setting( $this->advanced_options, $this->plugin_name . '_title_selector', 'string' );
+		register_setting( $this->advanced_options, $this->plugin_name . '_description_selector', 'string' );
 	}
+
 
 	/**
 	 * Render the text for the general section
@@ -189,33 +249,47 @@ class Audio_Envelope_Admin {
 	}
 
 	/**
-	 * Render the audio_selector field
+	 * Render the checkbox for the general section
+	 *
+	 * @since  1.0.0
+	 */
+	function audio_envelope_options_activate_player_cb() {
+		// Here we are comparing stored value with 1. Stored value is 1 if user checks the checkbox otherwise empty string. 
+		$activate_player = checked(1, get_option( $this->plugin_name . '_activate_player'), false);
+        echo '<input type="checkbox" name="' . $this->plugin_name . '_activate_player" value="1" '.$activate_player.' /><br/>';
+        echo '<p>If you activate the player site-wide, you can turn it off on individual pages. Otherwise you can selectively activate it on individual pages.</p>';
+	}
+
+	/**
+	 * Render the audio_selector field for the advanced section
 	 *
 	 * @since  1.0.0
 	 */
 	public function audio_envelope_options_audio_selector_cb() {
-		$audio_selector = get_option( $this->option_name . '_audio_selector' );
-		echo '<input type="text" name="' . $this->option_name . '_audio_selector' . '" id="' . $this->option_name . '_audio_selector' . '" value="' . $audio_selector . '" placeholder="audio.wp-audio-shortcode" class="audio_envelope_text_options"> ';
+		$audio_selector = get_option( $this->plugin_name . '_audio_selector' );
+		echo '<input type="text" name="' . $this->plugin_name . '_audio_selector' . '" id="' . $this->plugin_name . '_audio_selector' . '" value="' . $audio_selector . '" placeholder="audio.wp-audio-shortcode, .wp-block-audio audio" class="audio_envelope_text_options"> ';
 	}
 
 	/**
-	 * Render the title_selector field
+	 * Render the title_selector field for the advanced section
 	 *
 	 * @since  1.0.0
 	 */
 	public function audio_envelope_options_title_selector_cb() {
-		$audio_selector = get_option( $this->option_name . '_title_selector' );
-		echo '<input type="text" name="' . $this->option_name . '_title_selector' . '" id="' . $this->option_name . '_title_selector' . '" value="' . $audio_selector . '" placeholder="h3, h2, h1" class="audio_envelope_text_options"> ';
+		$audio_selector = get_option( $this->plugin_name . '_title_selector' );
+		echo '<input type="text" name="' . $this->plugin_name . '_title_selector' . '" id="' . $this->plugin_name . '_title_selector' . '" value="' . $audio_selector . '" placeholder=".ae-title, h3, h2, h1" class="audio_envelope_text_options"> ';
 	}
 
 	/**
-	 * Render the description_selector field
+	 * Render the description_selector field for the advanced section
 	 *
 	 * @since  1.0.0
 	 */
 	public function audio_envelope_options_description_selector_cb() {
-		$audio_selector = get_option( $this->option_name . '_description_selector' );
-		echo '<input type="text" name="' . $this->option_name . '_description_selector' . '" id="' . $this->option_name . '_description_selector' . '" value="' . $audio_selector . '" placeholder=".elementor-post__excerpt p:first-child" class="audio_envelope_text_options"> ';
+		$audio_selector = get_option( $this->plugin_name . '_description_selector' );
+		//$placeholder = ".elementor-post__excerpt p:first-child";
+		$placeholder = ".ae-description, p";
+		echo '<input type="text" name="' . $this->plugin_name . '_description_selector' . '" id="' . $this->plugin_name . '_description_selector' . '" value="' . $audio_selector . '" placeholder="' . $placeholder . '" class="audio_envelope_text_options"> ';
 	}
 
 }
