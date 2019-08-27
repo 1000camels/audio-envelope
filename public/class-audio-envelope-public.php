@@ -140,6 +140,9 @@ class Audio_Envelope_Public {
 
 		}
 
+		// add option for activate_player if first time only
+		add_option( $this->plugin_name . '_activate_player', 1 );
+
 		// Add localised variables
 		$localised_data = array(
 			'activate_player' => $activate_player,
