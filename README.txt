@@ -64,5 +64,5 @@ We are also exploring ways to 'carry' the audio around with you, however the aud
 
 = 1.0.5 =
 * Sorted out issues with JS not properly finding title and description
-* added Gutenberg block to improve accuracy of defining multiple audio envelopes in a post
+* Added Gutenberg block to improve accuracy of defining multiple audio envelopes in a post
 * Improved settings, so you can activate or deactivate player side-wide or on individual posts
