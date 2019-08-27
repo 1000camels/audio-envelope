@@ -254,8 +254,11 @@ class Audio_Envelope_Admin {
 	 * @since  1.0.0
 	 */
 	function audio_envelope_options_activate_player_cb() {
+		// add option if first time only
+		add_option( $this->plugin_name . '_activate_player', 1 );
+
 		// Here we are comparing stored value with 1. Stored value is 1 if user checks the checkbox otherwise empty string. 
-		$activate_player = checked(1, get_option( $this->plugin_name . '_activate_player', true), false);
+		$activate_player = checked(1, get_option( $this->plugin_name . '_activate_player'), false);
         echo '<input type="checkbox" name="' . $this->plugin_name . '_activate_player" value="1" '.$activate_player.' /><br/>';
         echo '<p>If you activate the player site-wide, you can turn it off on individual pages. Otherwise you can selectively activate it on individual pages.</p>';
 	}
