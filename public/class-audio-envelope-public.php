@@ -120,10 +120,27 @@ class Audio_Envelope_Public {
 		}
 
 		global $post;
-		$activate_player = get_option( 'audio-envelope_activate_player' );
+
+		// add options if they do not exist already
+		add_option( 'audio_envelope_plugin_options', array() );
+
+		$options = get_option( 'audio_envelope_plugin_options' );
+
+		if( !isset($options['activate_player']) ) {
+			$options['activate_player'] = 1;
+			update_option( 'audio_envelope_plugin_options', $options );
+		}
+
+		if( !isset($options['active_post_types']) ) {
+			$options['active_post_types'] = array('post','page');
+			update_option( 'audio_envelope_plugin_options', $options );
+		}
+
+		$activate_player = $options['activate_player'];
+		$debug_msg = null;
 		if( $activate_player ) {
 			// if activated globally, see if there is a local deactivation
-			if( ! get_post_meta( $post->ID, '_ae_activate_player', true ) ) {
+			if( in_array( '_ae_activate_player', get_post_custom_keys( $post->ID ) ) && ! get_post_meta( $post->ID, '_ae_activate_player', true ) ) {
 				$activate_player = 0;
 				if(WP_DEBUG) $debug_msg = 'Audio Envelope: globally activated; locally deactivated';
 			} else {
@@ -131,7 +148,7 @@ class Audio_Envelope_Public {
 			}
 		} else {
 			// if deactivated globally, see if there is a local activation
-			if( get_post_meta( $post->ID, '_ae_activate_player', true ) ) {
+			if( in_array( '_ae_activate_player', get_post_custom_keys( $post->ID ) ) && get_post_meta( $post->ID, '_ae_activate_player', true ) ) {
 				$activate_player = 1;
 				if(WP_DEBUG) $debug_msg = 'Audio Envelope: globally deactivated; locally activated';
 			} else {
@@ -140,15 +157,12 @@ class Audio_Envelope_Public {
 
 		}
 
-		// add option for activate_player if first time only
-		add_option( $this->plugin_name . '_activate_player', 1 );
-
 		// Add localised variables
 		$localised_data = array(
 			'activate_player' => $activate_player,
-			'audio_selector' => get_option( 'audio-envelope_audio_selector' ),
-			'title_selector' => get_option( 'audio-envelope_title_selector' ),
-			'description_selector' => get_option( 'audio-envelope_description_selector' ),
+			'audio_selector' => $options['audio_selector'],
+			'title_selector' => $options['title_selector'],
+			'description_selector' => $options['description_selector'],
 			'debug_msg' => $debug_msg
 		);
 		wp_localize_script( $this->plugin_name, 'audio_envelope', $localised_data );

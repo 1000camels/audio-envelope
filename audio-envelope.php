@@ -8,7 +8,7 @@
  * Plugin Name:       Audio Envelope
  * Plugin URI:        https://aporia.info/wp/audio-envelope/
  * Description:       This plugin renders an audio player and playlist for all audio elements within a page. It pulls together disparate audio files listed in posts (typically in the excepts in posts) and provide a single player to control them. It also keeps track of play point and can even continue to play the audio on subsequent pages that it is listed on.
- * Version:           1.0.5
+ * Version:           1.0.6
  * Author:            Darcy Christ
  * Author URI:        https://aporia.info
  * License:           GPL-2.0+

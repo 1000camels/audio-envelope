@@ -688,11 +688,11 @@ app.Views.Playlist = app.View.extend({
 		this.index = this.index - 1 < 0 ? this.tracks.length - 1 : this.index - 1;
 		this.setCurrent(this.index);
 
-		this.scrollToTrack();
-
 		if( playing ) {
 			this.current.play();
 		}
+
+		this.scrollToTrack();
 	},
 
 	nextTrack : function() {
@@ -703,17 +703,18 @@ app.Views.Playlist = app.View.extend({
 
 		this.index = this.index + 1 >= this.tracks.length ? 0 : this.index + 1;
 		this.setCurrent(this.index);
-
-		this.scrollToTrack();
 		
 		if( playing ) {
 			this.current.play();
 		}
+
+		this.scrollToTrack();
 	},
 
 	scrollToTrack : function() {
 		var container = $('.ae-playlist-tracks-wrapper');
 		var activeTrack = $('.ae-playlist-item.ae-playlist-playing');
+
 		var scrollTo = container.scrollTop() + (activeTrack.offset().top - container.offset().top);
 		$('.ae-playlist-tracks-wrapper').animate({scrollTop: scrollTo}, 1000);
 	},
@@ -752,8 +753,6 @@ app.Views.Playlist = app.View.extend({
 		this.current.makeActive();
 		//this.setCurrent();
 
-		$('.ae-playlist-tracks-wrapper').animate({scrollTop: jQuery('.ae-playlist-item.ae-playlist-playing').offset().top}, 1000);
-
 		if(!this.current.get('playing')) { //} && this.index != this.previous_index) {
 			this.current.play();
 		} else {
@@ -762,16 +761,16 @@ app.Views.Playlist = app.View.extend({
 
 		document.title = this.current.get('title');
 		 //console.log(document.title);
+
+		this.scrollToTrack();
 	},
 
 	bindPlayer : function (mejs) {
-		console.log('bindPlayer')
 		this.mejs = mejs;
 		this.mejs.addEventListener( 'ended', this.ended );
 	},
 
 	bindResetPlayer : function (mejs) {
-		console.log('bindResetPlayer')
 		this.bindPlayer( mejs );
 	},
 
@@ -971,7 +970,7 @@ app.Views.Players = app.View.extend({
 	},
 
 	render : function() {
-		console.log('Players render');
+		//console.log('Players render');
 	}
 
 });
@@ -985,7 +984,7 @@ app.Views.Players = app.View.extend({
 /* Provide quick way to find title */
 $.fn.getTitle = function() {
 	var title = ''
-	var title_selector = ( audio_envelope.description_selector ) ? audio_envelope.description_selector : '.ae-title, h3, h2, h1';
+	var title_selector = ( audio_envelope.title_selector ) ? audio_envelope.title_selector : '.ae-title, h3, h2, h1';
 
 	var title = this.getClosest(title_selector);
 	if( title ) {
@@ -1090,7 +1089,7 @@ function findAudio() {
 	var players = [];
 
 	var selector = ( audio_envelope.audio_selector ) ? audio_envelope.audio_selector : 'audio.wp-audio-shortcode, .wp-block-audio audio';
-	 console.log('using selector: '+selector)
+	 if(audio_envelope.debug_msg) console.log('using selector: '+selector)
 
 	var all_audio = $(selector), len = all_audio.length, i = 0;
 	if( all_audio.length ) {
@@ -1173,6 +1172,7 @@ $( document ).ready(function(){
     	params.delete('ae_deactivated')
     	newurl.search = params;
     	$('#ae_activation_button').html('Turn on Audio Envelope').attr('href',newurl);
+    	if(audio_envelope.debug_msg) console.log('Audio Envelope: deactivated via parameter ?ae_deactivated=1');
     } else {
     	params.set('ae_deactivated','true')
     	newurl.search = params;
@@ -1189,8 +1189,8 @@ $( document ).ready(function(){
     });
 
 	setTimeout( function() {
-		console.log(audio_envelope);
-		if( !ae_deactivated && audio_envelope.activate_player ) {
+		if(audio_envelope.debug_msg) console.log(audio_envelope);
+		if( !ae_deactivated && audio_envelope.activate_player != 0 ) {
 			var players = findAudio();
 			if( players.length ) AporiaPlaylist.start({ players: players });
 		}

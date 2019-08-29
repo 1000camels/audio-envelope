@@ -4,7 +4,7 @@ Donate link: https://aporia.info
 Tags: audio, player
 Requires at least: 3.5
 Tested up to: 5.2.2
-Stable tag: 1.0.5
+Stable tag: 1.0.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -66,3 +66,8 @@ We are also exploring ways to 'carry' the audio around with you, however the aud
 * Sorted out issues with JS not properly finding title and description
 * Added Gutenberg block to improve accuracy of defining multiple audio envelopes in a post
 * Improved settings, so you can activate or deactivate player side-wide or on individual posts
+
+= 1.0.6 =
+* Improved options, including putting them into one options field
+* Fixed bug with scrolling to active track
+* Upgrade babel + lodash to deal with security issue

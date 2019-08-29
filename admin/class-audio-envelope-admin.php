@@ -118,7 +118,10 @@ class Audio_Envelope_Admin {
 	 * Register Hello Gutenbert Meta Box
 	 */
 	function add_meta_box() {
-		add_meta_box( 'audio_envelope_meta_box', __( 'Audio Envelope', 'audio-envelope' ), array( $this, 'metabox_callback' ), 'post' );
+    	$options = get_option( 'audio_envelope_plugin_options' );
+    	$active_post_types = $options['active_post_types'];
+
+		add_meta_box( 'audio_envelope_meta_box', __( 'Audio Envelope', 'audio-envelope' ), array( $this, 'metabox_callback' ), $active_post_types );
 	}
 
 	/**
@@ -210,6 +213,14 @@ class Audio_Envelope_Admin {
 			$this->advanced_options
 		);
 		add_settings_field(
+			$this->plugin_name . '_active_post_types',
+			__( 'Active Post Types', 'audio-envelope' ),
+			array( $this, 'audio_envelope_options_active_post_types_cb' ),
+			$this->advanced_options,
+			$this->advanced_options,
+			array( 'label_for' => 'audio_envelope_options_active_post_types' )
+		);
+		add_settings_field(
 			$this->plugin_name . '_audio_selector',
 			__( 'Audio Selector', 'audio-envelope' ),
 			array( $this, 'audio_envelope_options_audio_selector_cb' ),
@@ -236,8 +247,9 @@ class Audio_Envelope_Admin {
 		register_setting( $this->advanced_options, $this->plugin_name . '_audio_selector', 'string' );
 		register_setting( $this->advanced_options, $this->plugin_name . '_title_selector', 'string' );
 		register_setting( $this->advanced_options, $this->plugin_name . '_description_selector', 'string' );
-	}
 
+    	register_setting( $this->advanced_options, 'audio_envelope_plugin_options' );
+    }
 
 	/**
 	 * Render the text for the general section
@@ -249,14 +261,34 @@ class Audio_Envelope_Admin {
 	}
 
 	/**
+	 * Render a checkbox for each post type
+	 *
+	 * @since  1.0.0
+	 */
+	function audio_envelope_options_active_post_types_cb() {
+    	$options = get_option( 'audio_envelope_plugin_options' );
+    	$active_post_types = $options['active_post_types'];
+    	error_log(print_r($active_post_types,True));
+
+		$args = array(
+		   'public'   => true
+		);
+		$post_types = get_post_types($args, 'objects');
+		foreach( $post_types as $key => $type ) {
+        	echo '<input type="checkbox" name="audio_envelope_plugin_options[active_post_types][]" value="'.$key.'" '.checked( in_array($key, $active_post_types), 1, false).' /><label>'.$type->label.'</label><br/>';
+		}
+	}
+
+
+	/**
 	 * Render the checkbox for the general section
 	 *
 	 * @since  1.0.0
 	 */
 	function audio_envelope_options_activate_player_cb() {
 		// Here we are comparing stored value with 1. Stored value is 1 if user checks the checkbox otherwise empty string. 
-		$activate_player = checked(1, get_option( $this->plugin_name . '_activate_player'), false);
-        echo '<input type="checkbox" name="' . $this->plugin_name . '_activate_player" value="1" '.$activate_player.' /><br/>';
+		$activate_player_checked = checked(1, get_option( 'audio_envelope_plugin_options' )['activate_player'], false);
+        echo '<input type="checkbox" name="audio_envelope_plugin_options[activate_player]" value="1" '.$activate_player_checked.' /><br/>';
         echo '<p>If you activate the player site-wide, you can turn it off on individual pages. Otherwise you can selectively activate it on individual pages.</p>';
 	}
 
@@ -266,8 +298,8 @@ class Audio_Envelope_Admin {
 	 * @since  1.0.0
 	 */
 	public function audio_envelope_options_audio_selector_cb() {
-		$audio_selector = get_option( $this->plugin_name . '_audio_selector' );
-		echo '<input type="text" name="' . $this->plugin_name . '_audio_selector' . '" id="' . $this->plugin_name . '_audio_selector' . '" value="' . $audio_selector . '" placeholder="audio.wp-audio-shortcode, .wp-block-audio audio" class="audio_envelope_text_options"> ';
+		$audio_selector = get_option( 'audio_envelope_plugin_options' )['audio_selector'];
+		echo '<input type="text" name="audio_envelope_plugin_options[audio_selector]" id="' . $this->plugin_name . '_audio_selector' . '" value="' . $audio_selector . '" placeholder="audio.wp-audio-shortcode, .wp-block-audio audio" class="audio_envelope_text_options"> ';
 	}
 
 	/**
@@ -276,8 +308,8 @@ class Audio_Envelope_Admin {
 	 * @since  1.0.0
 	 */
 	public function audio_envelope_options_title_selector_cb() {
-		$audio_selector = get_option( $this->plugin_name . '_title_selector' );
-		echo '<input type="text" name="' . $this->plugin_name . '_title_selector' . '" id="' . $this->plugin_name . '_title_selector' . '" value="' . $audio_selector . '" placeholder=".ae-title, h3, h2, h1" class="audio_envelope_text_options"> ';
+		$audio_selector = get_option( 'audio_envelope_plugin_options' )['title_selector'];
+		echo '<input type="text" name="audio_envelope_plugin_options[title_selector]" id="' . $this->plugin_name . '_title_selector' . '" value="' . $audio_selector . '" placeholder=".ae-title, h3, h2, h1" class="audio_envelope_text_options"> ';
 	}
 
 	/**
@@ -286,10 +318,10 @@ class Audio_Envelope_Admin {
 	 * @since  1.0.0
 	 */
 	public function audio_envelope_options_description_selector_cb() {
-		$audio_selector = get_option( $this->plugin_name . '_description_selector' );
+		$audio_selector = get_option( 'audio_envelope_plugin_options' )['description_selector'];
 		//$placeholder = ".elementor-post__excerpt p:first-child";
 		$placeholder = ".ae-description, p";
-		echo '<input type="text" name="' . $this->plugin_name . '_description_selector' . '" id="' . $this->plugin_name . '_description_selector' . '" value="' . $audio_selector . '" placeholder="' . $placeholder . '" class="audio_envelope_text_options"> ';
+		echo '<input type="text" name="audio_envelope_plugin_options[description_selector]" id="' . $this->plugin_name . '_description_selector' . '" value="' . $audio_selector . '" placeholder="' . $placeholder . '" class="audio_envelope_text_options"> ';
 	}
 
 }
