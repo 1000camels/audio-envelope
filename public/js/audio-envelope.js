@@ -1182,11 +1182,11 @@ $( document ).ready(function(){
     if(audio_envelope.debug_msg) console.log(audio_envelope.debug_msg);
 
     // create surround container, since I am unable to do this in gutenberg
-    $('.ae-block').each(function() {
-    	if( $(this).find('ae-description').length > 1 ) {
-    		$(this).find('ae-description').removeClass('ae-description').wrapAll('<div class="ae-description" />');
-    	}
-    });
+    // $('.ae-block').each(function() {
+    // 	if( $(this).find('ae-description').length > 1 ) {
+    // 		$(this).find('ae-description').removeClass('ae-description').wrapAll('<div class="ae-description" />');
+    // 	}
+    // });
 
 	setTimeout( function() {
 		if(audio_envelope.debug_msg) console.log(audio_envelope);

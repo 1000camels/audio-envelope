@@ -12,7 +12,7 @@ This plugin creates a player and playlist from all audio elements on the page.
 
 == Description ==
 
-This plugin renders an audio player and playlist for all audio elements within a page. It pulls together disparate audio files listed in posts (typically in the excerpts in posts) and provide a single player to control them. It also keeps track of the play point and can even continue to play the audio on subsequent pages that it is listed on.
+This plugin renders an audio player and playlist for all audio elements within a page. It pulls together audio files listed in posts (typically in the excerpts in posts) and provide a single player to control them. It also keeps track of the play point and can even continue to play the audio on subsequent pages that it is listed on.
 
 == Installation ==
 

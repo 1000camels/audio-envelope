@@ -268,7 +268,7 @@ class Audio_Envelope_Admin {
 	function audio_envelope_options_active_post_types_cb() {
     	$options = get_option( 'audio_envelope_plugin_options' );
     	$active_post_types = $options['active_post_types'];
-    	error_log(print_r($active_post_types,True));
+    	 //error_log(print_r($active_post_types,True));
 
 		$args = array(
 		   'public'   => true
