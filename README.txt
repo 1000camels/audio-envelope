@@ -4,7 +4,7 @@ Donate link: https://aporia.info
 Tags: audio, player
 Requires at least: 3.5
 Tested up to: 5.2.2
-Stable tag: 1.0.6
+Stable tag: 1.0.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -71,3 +71,6 @@ We are also exploring ways to 'carry' the audio around with you, however the aud
 * Improved options, including putting them into one options field
 * Fixed bug with scrolling to active track
 * Upgrade babel + lodash to deal with security issue
+
+= 1.0.7 =
+* Adding Elementor skin for Elementors Posts Widget, so posts with Gutenberg AE blocks are rendered instead of all of the content

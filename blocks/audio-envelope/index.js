@@ -85,7 +85,7 @@
 		        		RichText, { 
 		        			className: 'ae-title',
 		        			tagName: 'h2',
-		        			placeholder: __( 'Add a Title' ),
+		        			placeholder: __( 'Add a title' ),
 							keepPlaceholderOnFocus: true,
 							focus: focus,
              				onFocus: props.setFocus,

@@ -1,0 +1,7 @@
+.elementor-posts--skin-ae-cards .elementor-post__title+.ae-block .ap-container {
+	position: static;
+}
+
+.elementor-posts--skin-ae-cards .elementor-post__title+.ae-block .ae-title {
+	display: none;
+}

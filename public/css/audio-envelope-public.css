@@ -621,12 +621,12 @@ article.has-audio-player h2, article.has-audio-player h3 {
   }
 
   #circle_timeline {
-    margin-top: 20px;
+    margin-top: 00px;
     padding: 0px;
   }
 
   #main-player .large-button.player-button {
-    top: 92px;
+    top: 72px;
     left: 76px;
     width: 150px;
     height: 150px;
@@ -653,6 +653,7 @@ article.has-audio-player h2, article.has-audio-player h3 {
   }
   .ae-playlist-item .ae-playlist-item-description {
     font-size: 13px;
+    margin-left: 70px;
   }
 
   .timelines {

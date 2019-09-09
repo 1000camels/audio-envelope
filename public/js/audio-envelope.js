@@ -674,9 +674,15 @@ app.Views.Playlist = app.View.extend({
 		this.current.set('currentTime',0);
 	  	e.target.currentTime = -1;
 
-		this.nextTrack();
+	  	// console.log("continuous_play: "+audio_envelope.continuous_play)
+	  	// console.log(this.index + 1+" >= "+this.tracks.length+" loop_playlist: "+audio_envelope.loop_playlist)
+		if( audio_envelope.continuous_play ) {
+			// if we are at the end of the tracklist, but not looping, stop
+			if ( (this.index + 1) == this.tracks.length && ! audio_envelope.loop_playlist ) return;
+			this.nextTrack(true);
 
-		this.current.play();
+			this.current.play();
+		}
 	},
 
 	prevTrack : function() {
@@ -695,13 +701,14 @@ app.Views.Playlist = app.View.extend({
 		this.scrollToTrack();
 	},
 
-	nextTrack : function() {
+	nextTrack : function(automatic) {
 		//console.log('next - do something!');
 
 		var playing = this.current.get('playing');
 		this.current.pause();
 
 		this.index = this.index + 1 >= this.tracks.length ? 0 : this.index + 1;
+
 		this.setCurrent(this.index);
 		
 		if( playing ) {
@@ -726,10 +733,10 @@ app.Views.Playlist = app.View.extend({
 	togglePlayer : function() {
 		//console.log('togglePlayer');
 		if( $('body').hasClass('expanded-playlist-player') ) {
-			$('.close-expand-button').removeClass('opened').addClass('closed');
+			$('.close-expand-button').removeClass('opened').addClass('closed').attr('title','expand player');
 			this.hidePlayer();
 		} else {
-			$('.close-expand-button').removeClass('closed').addClass('opened');
+			$('.close-expand-button').removeClass('closed').addClass('opened').attr('title','minimise player');
 			this.showPlayer();
 		}
 	},
@@ -994,6 +1001,10 @@ $.fn.getTitle = function() {
 		// } else {
 		// 	return title.html().trim();
 		// }
+	} else {
+		// try again
+		var title = this.getClosest(title_selector);
+		return title;
 	}
 
 	return false;
@@ -1117,11 +1128,13 @@ function findAudio() {
 
 			// Get Title, removing surrounding markup, including links
 			var title_element = this_player.getTitle();
-			var title = $(title_element).html().trim().replace(/(<([^>]+)>)/ig,"");
+			var title = $(title_element).html();
+			 if(title) title = title.trim().replace(/(<([^>]+)>)/ig,"");
 
 			// Get Description, removing surrounding markup, including links
 			var description_element = this_player.getDescription();
-			var description = stripTag($(description_element).html().trim(),'a'); //replace(/(<(/)+a([^>]+)>)/ig,"");
+			var description = $(description_element).html();
+			 if(description) description = stripTag(description.trim(),'a'); //replace(/(<(/)+a([^>]+)>)/ig,"");
 
 			// build the list of players
 			players.push(
@@ -1191,6 +1204,7 @@ $( document ).ready(function(){
 	setTimeout( function() {
 		if(audio_envelope.debug_msg) console.log(audio_envelope);
 		if( !ae_deactivated && audio_envelope.activate_player != 0 ) {
+			$('body').addClass('audio-envelope-activated');
 			var players = findAudio();
 			if( players.length ) AporiaPlaylist.start({ players: players });
 		}

@@ -121,21 +121,22 @@ class Audio_Envelope_Admin {
     	$options = get_option( 'audio_envelope_plugin_options' );
     	$active_post_types = $options['active_post_types'];
 
-		add_meta_box( 'audio_envelope_meta_box', __( 'Audio Envelope', 'audio-envelope' ), array( $this, 'metabox_callback' ), $active_post_types );
+		add_meta_box( 'audio_envelope_meta_box', __( 'Audio Envelope', 'audio-envelope' ), array( $this, 'metabox_callback' ), $active_post_types, 'normal' );
 	}
 
 	/**
 	 * Hello Gutenberg Metabox Callback
 	 */
 	function metabox_callback( $post ) {
-		$activate_player_globally = checked(1, get_option( $this->plugin_name . '_activate_player'), false);
-		$activated = get_post_meta( $post->ID, '_ae_activate_player', true );
+		$activate_player_globally = checked(1, $this->get_option_by_key('activate_player'), false);
 
 		if($activate_player_globally) {
+			$activated = get_post_meta( $post->ID, '_ae_activate_player', true );
 			echo '<p>'.__('Player is ON globally','audio-envelope').'</p>';
-			echo '<input type="checkbox" name="ae_activate_player" id="ae_activate_player" value="0" '.(checked(0, $activated, false)).'/>';
-			echo '<label for="ae_activate_player">'.__( 'Disable player for this page', 'audio-envelope' ).'</label>';
+			echo '<input type="checkbox" name="ae_deactivate_player" id="ae_deactivate_player" value="0" '.(checked(0, $activated, false)).'/>';
+			echo '<label for="ae_deactivate_player">'.__( 'Disable player for this page', 'audio-envelope' ).'</label>';
 		} else {
+			$activated = get_post_meta( $post->ID, '_ae_activate_player', true );
 			echo '<p>'.__('Player is OFF globally','audio-envelope').'</p>';
 			echo '<br/>';
 			echo '<input type="checkbox" name="ae_activate_player" id="ae_activate_player" value="1" '.(checked(1, $activated, false)).'/>';
@@ -151,6 +152,8 @@ class Audio_Envelope_Admin {
 	function save_metabox_postdata( $post_id ) {
 		if ( array_key_exists( 'ae_activate_player', $_POST ) ) {
 			update_post_meta( $post_id, '_ae_activate_player', $_POST['ae_activate_player'] );
+		} else {
+			update_post_meta( $post_id, '_ae_activate_player', 0 );
 		}
 	}
 
@@ -199,10 +202,46 @@ class Audio_Envelope_Admin {
 			__( 'Activate Player', 'audio-envelope' ),
 			array( $this, 'audio_envelope_options_activate_player_cb' ), 
 			$this->display_options,
+			$this->display_options
+		);
+		add_settings_field(
+			$this->plugin_name . '_player_colour', 
+			__( 'Player Colour', 'audio-envelope' ),
+			array( $this, 'audio_envelope_options_player_colour_cb' ), 
 			$this->display_options,
-			array( 'label_for' => 'audio_envelope_options_activate_player' )
-		);  
-		register_setting( $this->display_options, $this->plugin_name . '_activate_player', 'string' );
+			$this->display_options
+		);
+		add_settings_field(
+			$this->plugin_name . '_player_top_offset', 
+			__( 'Player Top Offset', 'audio-envelope' ),
+			array( $this, 'audio_envelope_options_player_top_offset_cb' ), 
+			$this->display_options,
+			$this->display_options
+		);
+		add_settings_field(
+			$this->plugin_name . '_player_bottom_offset', 
+			__( 'Player Bottom Offset', 'audio-envelope' ),
+			array( $this, 'audio_envelope_options_player_bottom_offset_cb' ), 
+			$this->display_options,
+			$this->display_options
+		);
+		add_settings_field(
+			$this->plugin_name . '_continuous_play', 
+			__( 'Continuous Play', 'audio-envelope' ),
+			array( $this, 'audio_envelope_options_continuous_play_cb' ), 
+			$this->display_options,
+			$this->display_options
+		);
+		add_settings_field(
+			$this->plugin_name . '_loop_playlist', 
+			__( 'Loop Playlist', 'audio-envelope' ),
+			array( $this, 'audio_envelope_options_loop_playlist_cb' ), 
+			$this->display_options,
+			$this->display_options
+		);
+
+		// we want to store all the settings in one option
+    	register_setting( $this->display_options, 'audio_envelope_plugin_options', array( 'sanitize_callback' => array( $this, 'sanitize_options') ) );
 
 
 		// Advanced Options
@@ -217,39 +256,66 @@ class Audio_Envelope_Admin {
 			__( 'Active Post Types', 'audio-envelope' ),
 			array( $this, 'audio_envelope_options_active_post_types_cb' ),
 			$this->advanced_options,
-			$this->advanced_options,
-			array( 'label_for' => 'audio_envelope_options_active_post_types' )
+			$this->advanced_options
 		);
 		add_settings_field(
 			$this->plugin_name . '_audio_selector',
 			__( 'Audio Selector', 'audio-envelope' ),
 			array( $this, 'audio_envelope_options_audio_selector_cb' ),
 			$this->advanced_options,
-			$this->advanced_options,
-			array( 'label_for' => 'audio_envelope_options_audio_selector' )
+			$this->advanced_options
 		);
 		add_settings_field(
 			$this->plugin_name . '_title_selector',
 			__( 'Title Selector', 'audio-envelope' ),
 			array( $this, 'audio_envelope_options_title_selector_cb' ),
 			$this->advanced_options,
-			$this->advanced_options,
-			array( 'label_for' => 'audio_envelope_options_title_selector' )
+			$this->advanced_options
 		);
 		add_settings_field(
 			$this->plugin_name . '_description_selector',
 			__( 'Description Selector', 'audio-envelope' ),
 			array( $this, 'audio_envelope_options_description_selector_cb' ),
 			$this->advanced_options,
-			$this->advanced_options,
-			array( 'label_for' => 'audio_envelope_options_description_selector' )
+			$this->advanced_options
 		);
-		register_setting( $this->advanced_options, $this->plugin_name . '_audio_selector', 'string' );
-		register_setting( $this->advanced_options, $this->plugin_name . '_title_selector', 'string' );
-		register_setting( $this->advanced_options, $this->plugin_name . '_description_selector', 'string' );
 
-    	register_setting( $this->advanced_options, 'audio_envelope_plugin_options' );
+		// we want to store all the settings in one option
+    	register_setting( $this->advanced_options, 'audio_envelope_plugin_options', array( 'sanitize_callback' => array( $this, 'sanitize_options') ) );
     }
+
+
+    /**
+     * Sanitize each option
+     */
+    function sanitize_options( $input ) {
+		return $input;
+
+		// Initialize the new array that will hold the sanitize values
+		$new_input = array();
+
+		// Loop through the input and sanitize each of the values
+		foreach ( $input as $key => $val ) {
+			switch ( $key ) {
+				case 'active_post_types':
+			        $new_input[ $key ] = $val;
+			        break;
+
+    			default:
+					$new_input[ $key ] = ( isset( $input[ $key ] ) ) ? sanitize_text_field( $val ) : '';
+			}
+		}
+
+		// Explicitly set checkboxes to 0 if they do not exist
+		// $checkboxes = array('activate_player', 'continuous_play', 'loop_playlist');
+		// foreach( $checkboxes as $checkbox ) {
+		// 	if( !isset($new_input[$checkbox]) ) {
+		// 		$new_input[$checkbox] = 0;
+		// 	}
+		// }
+
+		return $new_input;
+	}
 
 	/**
 	 * Render the text for the general section
@@ -261,13 +327,79 @@ class Audio_Envelope_Admin {
 	}
 
 	/**
+	 * Render the checkbox for the general section
+	 *
+	 * @since  1.0.0
+	 */
+	function audio_envelope_options_activate_player_cb() {
+		// Here we are comparing stored value with 1. Stored value is 1 if user checks the checkbox otherwise empty string. 
+		$activate_player_checked = checked(1, $this->get_option_by_key('activate_player'), false);
+        echo '<input type="checkbox" name="audio_envelope_plugin_options[activate_player]" value="1" '.$activate_player_checked.' /><br/>';
+        echo '<p><span class="dashicons dashicons-editor-help"></span> If you activate the player site-wide, you can turn it off on individual pages. Otherwise you can selectively activate it on individual pages.</p>';
+	}
+
+	/**
+	 * Render an input box to set the player colour
+	 *
+	 * @since  1.0.0
+	 */
+	function audio_envelope_options_player_colour_cb() {
+		$player_colour = $this->get_option_by_key('player_colour');
+		echo '<input type="text" name="audio_envelope_plugin_options[player_colour]" id="audio_envelope_player_colour" value="' . $player_colour . '" placeholder="#189e98 or pink" class="audio_envelope_text_options"> ';
+        echo '<p><span class="dashicons dashicons-editor-help"></span> Set the colour of the player so it matches your website design.</p>';
+	}
+
+	/**
+	 * Render an input box to set the top offset for the player
+	 *
+	 * @since  1.0.0
+	 */
+	function audio_envelope_options_player_top_offset_cb() {
+		$player_top_offset = $this->get_option_by_key('player_top_offset');
+		echo '<input type="text" name="audio_envelope_plugin_options[player_top_offset]" id="audio_envelope_player_top_offset" value="' . $player_top_offset . '" placeholder="54px" class="audio_envelope_text_options"> ';
+        echo '<p><span class="dashicons dashicons-editor-help"></span> This is useful if you have a fixed header. Set this to the height of your header.</p>';
+	}
+
+	/**
+	 * Render an input box to set the bottom offset for the player
+	 *
+	 * @since  1.0.0
+	 */
+	function audio_envelope_options_player_bottom_offset_cb() {
+		$player_bottom_offset = $this->get_option_by_key('player_bottom_offset');
+		echo '<input type="text" name="audio_envelope_plugin_options[player_bottom_offset]" id="audio_envelope_player_bottom_offset" value="' . $player_bottom_offset . '" placeholder="20px" class="audio_envelope_text_options"> ';
+        echo '<p><span class="dashicons dashicons-editor-help"></span> This is useful if you have a fixed footer. Set this to the height of your footer.</p>';
+	}
+
+	/**
+	 * Render a checkbox for continuous play
+	 *
+	 * @since  1.0.0
+	 */
+	function audio_envelope_options_continuous_play_cb() {
+    	$continuous_play = $this->get_option_by_key('continuous_play');
+		echo '<input type="checkbox" name="audio_envelope_plugin_options[continuous_play]" value="1" '.checked( 1, $continuous_play, false).' /><br/>';
+        echo '<p><span class="dashicons dashicons-editor-help"></span> Set whether to play the next track automatically.</p>';
+	}
+
+	/**
+	 * Render a checkbox for looping
+	 *
+	 * @since  1.0.0
+	 */
+	function audio_envelope_options_loop_playlist_cb() {
+    	$loop_playlist = $this->get_option_by_key('loop_playlist');
+		echo '<input type="checkbox" name="audio_envelope_plugin_options[loop_playlist]" value="1" '.checked( 1, $loop_playlist, false).' /><br/>';
+        echo '<p><span class="dashicons dashicons-editor-help"></span> Set player to loop at the end of the playlist. Requires that Continuous Play is enabled.</p>';
+	}
+
+	/**
 	 * Render a checkbox for each post type
 	 *
 	 * @since  1.0.0
 	 */
 	function audio_envelope_options_active_post_types_cb() {
-    	$options = get_option( 'audio_envelope_plugin_options' );
-    	$active_post_types = $options['active_post_types'];
+    	$active_post_types = $this->get_option_by_key('active_post_types');
     	 //error_log(print_r($active_post_types,True));
 
 		$args = array(
@@ -275,21 +407,9 @@ class Audio_Envelope_Admin {
 		);
 		$post_types = get_post_types($args, 'objects');
 		foreach( $post_types as $key => $type ) {
-        	echo '<input type="checkbox" name="audio_envelope_plugin_options[active_post_types][]" value="'.$key.'" '.checked( in_array($key, $active_post_types), 1, false).' /><label>'.$type->label.'</label><br/>';
+        	echo '<input type="checkbox" name="audio_envelope_plugin_options[active_post_types][]" value="'.$key.'" '.checked( in_array($key, $active_post_types), 1, false).' /><label>'.$type->label.'</label><br/>';        
 		}
-	}
-
-
-	/**
-	 * Render the checkbox for the general section
-	 *
-	 * @since  1.0.0
-	 */
-	function audio_envelope_options_activate_player_cb() {
-		// Here we are comparing stored value with 1. Stored value is 1 if user checks the checkbox otherwise empty string. 
-		$activate_player_checked = checked(1, get_option( 'audio_envelope_plugin_options' )['activate_player'], false);
-        echo '<input type="checkbox" name="audio_envelope_plugin_options[activate_player]" value="1" '.$activate_player_checked.' /><br/>';
-        echo '<p>If you activate the player site-wide, you can turn it off on individual pages. Otherwise you can selectively activate it on individual pages.</p>';
+        echo '<p><span class="dashicons dashicons-editor-help"></span> Set which post types can display the player.</p>';
 	}
 
 	/**
@@ -298,8 +418,9 @@ class Audio_Envelope_Admin {
 	 * @since  1.0.0
 	 */
 	public function audio_envelope_options_audio_selector_cb() {
-		$audio_selector = get_option( 'audio_envelope_plugin_options' )['audio_selector'];
+		$audio_selector = $this->get_option_by_key('audio_selector');
 		echo '<input type="text" name="audio_envelope_plugin_options[audio_selector]" id="' . $this->plugin_name . '_audio_selector' . '" value="' . $audio_selector . '" placeholder="audio.wp-audio-shortcode, .wp-block-audio audio" class="audio_envelope_text_options"> ';
+        echo '<p><span class="dashicons dashicons-editor-help"></span> This selector identifies audio elements.</p>';
 	}
 
 	/**
@@ -308,8 +429,9 @@ class Audio_Envelope_Admin {
 	 * @since  1.0.0
 	 */
 	public function audio_envelope_options_title_selector_cb() {
-		$audio_selector = get_option( 'audio_envelope_plugin_options' )['title_selector'];
+		$audio_selector = $this->get_option_by_key('title_selector');
 		echo '<input type="text" name="audio_envelope_plugin_options[title_selector]" id="' . $this->plugin_name . '_title_selector' . '" value="' . $audio_selector . '" placeholder=".ae-title, h3, h2, h1" class="audio_envelope_text_options"> ';
+        echo '<p><span class="dashicons dashicons-editor-help"></span> This selector identifies titles for each audio element.</p>';
 	}
 
 	/**
@@ -318,10 +440,22 @@ class Audio_Envelope_Admin {
 	 * @since  1.0.0
 	 */
 	public function audio_envelope_options_description_selector_cb() {
-		$audio_selector = get_option( 'audio_envelope_plugin_options' )['description_selector'];
+		$audio_selector = $this->get_option_by_key('description_selector');
 		//$placeholder = ".elementor-post__excerpt p:first-child";
 		$placeholder = ".ae-description, p";
 		echo '<input type="text" name="audio_envelope_plugin_options[description_selector]" id="' . $this->plugin_name . '_description_selector' . '" value="' . $audio_selector . '" placeholder="' . $placeholder . '" class="audio_envelope_text_options"> ';
+        echo '<p><span class="dashicons dashicons-editor-help"></span> This selector identifies descriptions for each audio element.</p>';
+	}
+
+
+	public function get_option_by_key($key) {
+		$options = get_option( 'audio_envelope_plugin_options' );
+		error_log(print_r($options,TRUE));
+		if( isset($options[$key]) ) {
+			return $options[$key];
+		} else {
+			return '';
+		}
 	}
 
 }
