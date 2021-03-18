@@ -154,6 +154,7 @@ class Audio_Envelope_Public {
 
 		if( !isset($options['continuous_play']) ) $options['continuous_play'] = 0;
 		if( !isset($options['loop_playlist']) ) $options['loop_playlist'] = 0;
+		if( !isset($options['body_wrapper_selector']) ) $options['body_wrapper_selector'] = null;
 		if( !isset($options['audio_selector']) ) $options['audio_selector'] = null;
 		if( !isset($options['title_selector']) ) $options['title_selector'] = null;
 		if( !isset($options['description_selector']) ) $options['description_selector'] = null;
@@ -163,6 +164,7 @@ class Audio_Envelope_Public {
 			'activate_player' => $activate_player,
 			'continuous_play' => $options['continuous_play'],
 			'loop_playlist' => $options['loop_playlist'],
+			'body_wrapper_selector' => $options['body_wrapper_selector'],
 			'audio_selector' => $options['audio_selector'],
 			'title_selector' => $options['title_selector'],
 			'description_selector' => $options['description_selector'],

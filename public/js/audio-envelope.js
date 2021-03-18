@@ -18,7 +18,12 @@ var app = window.AporiaPlaylist = {
 		// create an outer container for the main div
 		// * this is a problem if there isn't one main div
 		// :TODO: could be customised to allow specifying container
-		$('body > div:first-child').wrapAll( '<section id="mejs-body-container" />' );
+		console.log(audio_envelope.body_wrapper_selector);
+		if( !$(audio_envelope.body_wrapper_selector) ) {
+			console.log('Unable to find wrapper container: '+audio_envelope.body_wrapper_selector);
+		}
+
+		$(audio_envelope.body_wrapper_selector).wrapAll( '<section id="mejs-body-container" />' );
 
 		// Add the playlist container
 		var playlist_template = wp.template('ae-playlist-panel');
@@ -1068,6 +1073,11 @@ $.fn.getClosest = function(selector) {
 		elem = elem.parent();
 	}
 
+	// Last attempt find the child
+	var found = elem.find(selector)
+	if( found ) {
+		return found
+	}
 
 	return false;
 };
@@ -1112,7 +1122,7 @@ function findAudio() {
 
 			// look for the surrounding audio containers (MediaElement.JS or HTML Audio)
 			var audio_container = $(this).closest('.mejs-container, figure.wp-block-audio');
-			 audio_container.addClass('hidden');
+			 //audio_container.addClass('hidden');
 
 			var src = this_player.attr('src').replace(/_=[0-9]+/,'').replace(/\?$/,'');
 			//var type = this_player.attr('type');

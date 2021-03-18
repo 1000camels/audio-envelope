@@ -240,48 +240,51 @@ class Audio_Envelope_Admin {
 			$this->display_options
 		);
 
-		// we want to store all the settings in one option
-    	register_setting( $this->display_options, 'audio_envelope_plugin_options', array( 'sanitize_callback' => array( $this, 'sanitize_options') ) );
-
-
 		// Advanced Options
 		add_settings_section(
-			$this->advanced_options,
+			$this->display_options,
 			__( 'Advanced', 'audio-envelope' ),
 			array( $this, 'audio_envelope_options_general_cb' ),
-			$this->advanced_options
+			$this->display_options
 		);
 		add_settings_field(
 			$this->plugin_name . '_active_post_types',
 			__( 'Active Post Types', 'audio-envelope' ),
 			array( $this, 'audio_envelope_options_active_post_types_cb' ),
-			$this->advanced_options,
-			$this->advanced_options
+			$this->display_options,
+			$this->display_options
+		);
+		add_settings_field(
+			$this->plugin_name . '_body_wrapper_selector',
+			__( 'Body Wrapper Selector', 'audio-envelope' ),
+			array( $this, 'audio_envelope_options_body_wrapper_selector_cb' ),
+			$this->display_options,
+			$this->display_options
 		);
 		add_settings_field(
 			$this->plugin_name . '_audio_selector',
 			__( 'Audio Selector', 'audio-envelope' ),
 			array( $this, 'audio_envelope_options_audio_selector_cb' ),
-			$this->advanced_options,
-			$this->advanced_options
+			$this->display_options,
+			$this->display_options
 		);
 		add_settings_field(
 			$this->plugin_name . '_title_selector',
 			__( 'Title Selector', 'audio-envelope' ),
 			array( $this, 'audio_envelope_options_title_selector_cb' ),
-			$this->advanced_options,
-			$this->advanced_options
+			$this->display_options,
+			$this->display_options
 		);
 		add_settings_field(
 			$this->plugin_name . '_description_selector',
 			__( 'Description Selector', 'audio-envelope' ),
 			array( $this, 'audio_envelope_options_description_selector_cb' ),
-			$this->advanced_options,
-			$this->advanced_options
+			$this->display_options,
+			$this->display_options
 		);
 
 		// we want to store all the settings in one option
-    	register_setting( $this->advanced_options, 'audio_envelope_plugin_options', array( 'sanitize_callback' => array( $this, 'sanitize_options') ) );
+    	register_setting( $this->display_options, 'audio_envelope_plugin_options', array( 'sanitize_callback' => array( $this, 'sanitize_options') ) );
     }
 
 
@@ -413,6 +416,17 @@ class Audio_Envelope_Admin {
 	}
 
 	/**
+	 * Render the body_wrapper_selecto field for the advanced section
+	 *
+	 * @since  1.0.0
+	 */
+	public function audio_envelope_options_body_wrapper_selector_cb() {
+		$body_wrapper_selector = $this->get_option_by_key('body_wrapper_selector');
+		echo '<input type="text" name="audio_envelope_plugin_options[body_wrapper_selector]" id="' . $this->plugin_name . '_body_wrapper_selector' . '" value="' . $body_wrapper_selector . '" placeholder="body > div:first-child" class="audio_envelope_text_options"> ';
+        echo '<p><span class="dashicons dashicons-editor-help"></span> This selector identify the main body wrapper.</p>';
+	}
+
+	/**
 	 * Render the audio_selector field for the advanced section
 	 *
 	 * @since  1.0.0
@@ -429,8 +443,8 @@ class Audio_Envelope_Admin {
 	 * @since  1.0.0
 	 */
 	public function audio_envelope_options_title_selector_cb() {
-		$audio_selector = $this->get_option_by_key('title_selector');
-		echo '<input type="text" name="audio_envelope_plugin_options[title_selector]" id="' . $this->plugin_name . '_title_selector' . '" value="' . $audio_selector . '" placeholder=".ae-title, h3, h2, h1" class="audio_envelope_text_options"> ';
+		$title_selector = $this->get_option_by_key('title_selector');
+		echo '<input type="text" name="audio_envelope_plugin_options[title_selector]" id="' . $this->plugin_name . '_title_selector' . '" value="' . $title_selector . '" placeholder=".ae-title, h3, h2, h1" class="audio_envelope_text_options"> ';
         echo '<p><span class="dashicons dashicons-editor-help"></span> This selector identifies titles for each audio element.</p>';
 	}
 
@@ -440,10 +454,10 @@ class Audio_Envelope_Admin {
 	 * @since  1.0.0
 	 */
 	public function audio_envelope_options_description_selector_cb() {
-		$audio_selector = $this->get_option_by_key('description_selector');
+		$description_selector = $this->get_option_by_key('description_selector');
 		//$placeholder = ".elementor-post__excerpt p:first-child";
 		$placeholder = ".ae-description, p";
-		echo '<input type="text" name="audio_envelope_plugin_options[description_selector]" id="' . $this->plugin_name . '_description_selector' . '" value="' . $audio_selector . '" placeholder="' . $placeholder . '" class="audio_envelope_text_options"> ';
+		echo '<input type="text" name="audio_envelope_plugin_options[description_selector]" id="' . $this->plugin_name . '_description_selector' . '" value="' . $description_selector . '" placeholder="' . $placeholder . '" class="audio_envelope_text_options"> ';
         echo '<p><span class="dashicons dashicons-editor-help"></span> This selector identifies descriptions for each audio element.</p>';
 	}
 

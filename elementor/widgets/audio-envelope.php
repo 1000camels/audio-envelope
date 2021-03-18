@@ -35,6 +35,9 @@ class Audio_Envelope_Widget extends \Elementor\Widget_Base {
             'label' => __( 'Title', 'elementor-audio-envelope' ),
             'type' => \Elementor\Controls_Manager::TEXT,
             'default' => '',
+            'dynamic' => [
+               'active' => true,
+            ],
             'title' => __( 'Add a title', 'elementor-audio-envelope' ),
             'section' => 'section_ae_content',
          ]
@@ -46,6 +49,9 @@ class Audio_Envelope_Widget extends \Elementor\Widget_Base {
             'label' => __( 'Description', 'elementor-audio-envelope' ),
             'type' => \Elementor\Controls_Manager::WYSIWYG,
             'default' => '',
+            'dynamic' => [
+               'active' => true,
+            ],
             'title' => __( 'Write a description', 'elementor-audio-envelope' ),
             'section' => 'section_ae_content',
          ]
@@ -71,6 +77,9 @@ class Audio_Envelope_Widget extends \Elementor\Widget_Base {
             'type' => \Elementor\Controls_Manager::URL,
             'placeholder' => __( 'https://aporia.info/wp-content/uploads/2019/01/What-is-audio-envelope.mp3', 'elementor-audio-envelope' ),
             'show_external' => true,
+            'dynamic' => [
+               'active' => true,
+            ],
             'default' => [
                'url' => '',
                'is_external' => true,

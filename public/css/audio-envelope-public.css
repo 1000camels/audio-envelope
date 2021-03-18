@@ -521,13 +521,11 @@ body.expanded-playlist-player #mejs-player-panel .ae-playlist {
 
 article.has-audio-player {
   position: relative;
+  padding: 4px;
 }
 
 
 /* These styles should be in the theme */
-article {
-  padding: 4px;
-}
 article.has-audio-player h2, article.has-audio-player h3 {
     width: calc(100% - 60px);
     /*min-height: 50px;*/

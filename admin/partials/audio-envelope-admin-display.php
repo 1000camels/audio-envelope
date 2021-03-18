@@ -25,7 +25,6 @@
 
     <h2 class="nav-tab-wrapper">
         <a href="?page=audio-envelope&tab=display_options" class="nav-tab <?php echo $active_tab == 'display_options' ? 'nav-tab-active' : ''; ?>">Display Options</a>
-        <a href="?page=audio-envelope&tab=advanced_options" class="nav-tab <?php echo $active_tab == 'advanced_options' ? 'nav-tab-active' : ''; ?>">Advanced Options</a>
     </h2>
 
     <form action="options.php" method="post">
