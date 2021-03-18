@@ -74,3 +74,7 @@ We are also exploring ways to 'carry' the audio around with you, however the aud
 
 = 1.0.7 =
 * Adding Elementor skin for Elementors Posts Widget, so posts with Gutenberg AE blocks are rendered instead of all of the content
+
+= 1.0.8 =
+* Removed error message when Elementor is not installed, as it is not required
+* Updated npm libraries with security vulnerabilities
