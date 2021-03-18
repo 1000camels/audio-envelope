@@ -165,7 +165,7 @@ final class Elementor_Audio_Envelope {
       $message = sprintf(
          /* translators: 1: Plugin name 2: Elementor */
          esc_html__( '"%1$s" requires "%2$s" to be installed and activated.', 'elementor-audio-envelope' ),
-         '<strong>' . esc_html__( 'Elementor Test Extension', 'elementor-audio-envelope' ) . '</strong>',
+         '<strong>' . esc_html__( 'Audio Envelope', 'elementor-audio-envelope' ) . '</strong>',
          '<strong>' . esc_html__( 'Elementor', 'elementor-audio-envelope' ) . '</strong>'
       );
 
