@@ -3,8 +3,8 @@ Contributors: 1000camels, standiers
 Donate link: https://aporia.info
 Tags: audio, player
 Requires at least: 3.5
-Tested up to: 5.2.2
-Stable tag: 1.0.8
+Tested up to: 5.7
+Stable tag: 1.0.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -78,3 +78,6 @@ We are also exploring ways to 'carry' the audio around with you, however the aud
 = 1.0.8 =
 * Removed error message when Elementor is not installed, as it is not required
 * Updated npm libraries with security vulnerabilities
+
+= 1.0.9 =
+* Fixed unhidden default player
